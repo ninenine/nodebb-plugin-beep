@@ -1,0 +1,33 @@
+{
+  "name": "nodebb-plugin-beep",
+  "version": "0.0.1",
+  "description": "NodeBB Censor Curse Words Plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ninenine/nodebb-plugin-beep"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "beep",
+    "censor",
+    "curse",
+    "Curse"
+  ],
+  "author": {
+    "name": "Davis Wainaina",
+    "email": "davisjwn@gmail.com"
+  },
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/ninenine/nodebb-plugin-beep/issues"
+  },
+  "readme": "",
+  "readmeFilename": "README.md",
+  "_id": "nodebb-plugin-beep@0.0.1",
+  "_from": "nodebb-plugin-beep@~0.0.1"
+}
