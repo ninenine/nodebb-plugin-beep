@@ -85,33 +85,6 @@
         postContent = postContent.replace(re, hashword);
       }
     }
-    /* TODO
-    jQuery('document').ready(function() {
-    	for (var w in badwords) {
-			var re = new RegExp(badwords[w],"i");
-			var hidesting = '';
-			for (var i = 0; i < badwords[w].length - 2; i++) {
-			hidesting += '*';
-			}
-			var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1),"i");
-			$('.topic-title').each(function() {
-				if ($(this).html().match(re)) {
-					$(this).html($(this).html().replace(re2,hidesting));
-				};
-			});
-			$('.header-topic-title').each(function() {
-				if ($(this).html().match(re)) {
-					$(this).html($(this).html().replace(re2,hidesting));
-				};
-			});
-			$('.breadcrumb').each(function() {
-				if ($(this).html().match(re)) {
-					$(this).html($(this).html().replace(re2,hidesting));
-				};
-			});
-	    }	
-    }*/
-
     callback(null, postContent);
   };
   module.exports = Beep;
