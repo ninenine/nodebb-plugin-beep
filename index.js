@@ -82,13 +82,13 @@
       'whore',
       'wtf'
     ];
-    for (w in badwords) {
-      if (postContent.match(badwords[w])) {
+    for (var w in badwords) {
+      if (postContent.match(/badwords[w]/i)) {
         var hidesting = '';
         for (var i = 0; i <= badwords[w].length - 2; i++) {
           hidesting += '*';
         }
-        postContent = postContent.replace(badwords[w].substring(1, badwords[w].length - 1), hidesting);
+        postContent = postContent.replace(/badwords[w].substring(1, badwords[w].length - 1)/i, hidesting);
       }
     }
     callback(null, postContent);
