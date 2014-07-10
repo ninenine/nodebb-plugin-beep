@@ -83,12 +83,14 @@
       'wtf'
     ];
     for (var w in badwords) {
-      if (postContent.match(/badwords[w]/i)) {
+      var re = new RegExp(badwords[w],"i");
+      if (postContent.match(re)) {
         var hidesting = '';
         for (var i = 0; i <= badwords[w].length - 2; i++) {
           hidesting += '*';
         }
-        postContent = postContent.replace(/badwords[w].substring(1, badwords[w].length - 1)/i, hidesting);
+        var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1),"i");
+        postContent = postContent.replace(re2, hidesting);
       }
     }
     callback(null, postContent);
