@@ -1,4 +1,3 @@
-var $ = require('jQuery');
 (function (module) {
   'use strict';
   var Beep = {
