@@ -80,7 +80,7 @@
         hidesting += '*';
       }
       var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
-      var hashword = w.replace(re2, hidesting)
+      var hashword = badwords[w].replace(re2, hidesting)
       if (postContent.match(re)) {
         postContent = postContent.replace(re, hashword);
       }
