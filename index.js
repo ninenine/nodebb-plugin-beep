@@ -1,7 +1,6 @@
 (function (module) {
   'use strict';
-  var Beep = {
-  };
+  var Beep = {};
   Beep.parse = function (postContent, callback) {
     var badwords = [
       'anal',
@@ -27,7 +26,7 @@
       'clitoris',
       'cock',
       'coon',
-      //'crap',
+      'crap',
       'cunt',
       'damn',
       'dick',
@@ -43,21 +42,15 @@
       'fudgepacker',
       'fudge packer',
       'flange',
-      //'Goddamn',
-      //'God damn',
-      //'hell',
       'homo',
       'jerk',
       'jizz',
       'knobend',
       'knob end',
       'labia',
-      //'lmao',
-      //'lmfao',
       'muff',
       'nigger',
       'nigga',
-      //'omg',
       'penis',
       'piss',
       'poop',
@@ -65,10 +58,9 @@
       'pube',
       'pussy',
       'queer',
-      //'scrotum',
       'sex',
       'shit',
-      //'s hit',
+      's hit',
       'sh1t',
       'slut',
       'smegma',
@@ -80,20 +72,17 @@
       'vagina',
       'wank',
       'whore'
-      //'wtf'
     ];
     for (var w in badwords) {
-      var re = new RegExp(badwords[w],"i");
-      
+      var re = new RegExp(badwords[w], 'ig');
       var hidesting = '';
-      
       for (var i = 0; i < badwords[w].length - 2; i++) {
         hidesting += '*';
       }
-      
-      var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1),"ig");
+      var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
+      var hashword = w.replace(re2, hidesting)
       if (postContent.match(re)) {
-        postContent = postContent.replace(re2, hidesting);
+        postContent = postContent.replace(re, hashword);
       }
     }
     /* TODO
@@ -122,8 +111,8 @@
 			});
 	    }	
     }*/
+
     callback(null, postContent);
   };
   module.exports = Beep;
 }(module));
-
