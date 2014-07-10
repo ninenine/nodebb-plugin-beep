@@ -27,7 +27,7 @@
       'clitoris',
       'cock',
       'coon',
-      'crap',
+      //'crap',
       'cunt',
       'damn',
       'dick',
@@ -43,21 +43,21 @@
       'fudgepacker',
       'fudge packer',
       'flange',
-      'Goddamn',
-      'God damn',
-      'hell',
+      //'Goddamn',
+      //'God damn',
+      //'hell',
       'homo',
       'jerk',
       'jizz',
       'knobend',
       'knob end',
       'labia',
-      'lmao',
-      'lmfao',
+      //'lmao',
+      //'lmfao',
       'muff',
       'nigger',
       'nigga',
-      'omg',
+      //'omg',
       'penis',
       'piss',
       'poop',
@@ -65,10 +65,10 @@
       'pube',
       'pussy',
       'queer',
-      'scrotum',
+      //'scrotum',
       'sex',
       'shit',
-      's hit',
+      //'s hit',
       'sh1t',
       'slut',
       'smegma',
@@ -79,8 +79,8 @@
       'twat',
       'vagina',
       'wank',
-      'whore',
-      'wtf'
+      'whore'
+      //'wtf'
     ];
     for (var w in badwords) {
       var re = new RegExp(badwords[w],"i");
@@ -91,7 +91,7 @@
         hidesting += '*';
       }
       
-      var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1),"i");
+      var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1),"ig");
       if (postContent.match(re)) {
         postContent = postContent.replace(re2, hidesting);
       }
