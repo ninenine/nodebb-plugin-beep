@@ -41,8 +41,9 @@
         hidesting += '*';
       }
       var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
-      var hashword = badwords[w].replace(re2, hidesting)
       if (postContent.match(re)) {
+        var match = postContent.match(re);        
+        var hashword = match.replace(re2, hidesting)
         postContent = postContent.replace(re, hashword);
       }
     }

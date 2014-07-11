@@ -99,36 +99,49 @@
         hidesting += '*';
       }
       var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
-      var hashword = badwords[w].replace(re2, hidesting)
       //Change topic title on topic list
       $('.category-item .topic-title') .each(function () {
         if ($(this) .html() .match(re)) {
+          var match = $(this) .html() .match(re);        
+          var hashword = match.replace(re2, hidesting)
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
       //Change topic title on topic
       $('h3.topic-title p.topic-title') .each(function () {
         if ($(this) .html() .match(re)) {
+          var match = $(this) .html() .match(re);        
+          var hashword = match.replace(re2, hidesting)
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
       //Change Breadcrump
       $('ol.breadcrumb li.active span') .each(function () {
         if ($(this) .html() .match(re)) {
-          $(this) .html($(this) .html() .replace(re, hashword));
+          var match = $(this) .html() .match(re);        
+          var hashword = match.replace(re2, hidesting)
+          $(this) .html($(this) .html() .replace(re, hashword));));
         }
       });
-      /* Causes stuff to happen for some reason
-
+      /* Causes stuff(random blinking on the homepage) to happen for some reason */
+      /*
       //Change recent replies panel information
       $('.panel .recent-replies') .each(function () {
         if ($(this) .html() .match(re)) {
+          var match = $(this) .html() .match(re);        
+          var hashword = match.replace(re2, hidesting)
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
+      */
+  
+      /* Won't work because of highlighting */
+      /*
       //Change search information
       $('.search-result-text') .each(function () {
         if ($(this) .html() .match(re)) {
+          var match = $(this) .html() .match(re);        
+          var hashword = match.replace(re2, hidesting)
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });*/
@@ -136,9 +149,13 @@
       //Change header information
       $('.header-topic-title span') .each(function () {
         if ($(this) .html() .match(re)) {
+          var match = $(this) .html() .match(re);        
+          var hashword = match.replace(re2, hidesting)
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
+      var match = document.title.match(re);        
+      var hashword = match.replace(re2, hidesting)
       document.title = document.title.replace(re, hashword);
     }
   }
