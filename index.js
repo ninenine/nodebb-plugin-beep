@@ -36,7 +36,7 @@
   };
 
   Beep.parse = function (postContent, callback) {
-    badwords = Beep.banned_words.split(',');
+    var badwords = Beep.banned_words.split(',');
     for (var w in badwords) {
       var re = new RegExp(badwords[w], 'ig');
       var hidesting = '';
