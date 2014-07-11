@@ -102,7 +102,7 @@
       $('.category-item .topic-title') .each(function () {
         if ($(this) .html() .match(re)) {
           var match = $(this) .html() .match(re);        
-          var hashword = match.replace(re2, hidesting);
+          var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
@@ -110,7 +110,7 @@
       $('h3.topic-title p.topic-title') .each(function () {
         if ($(this) .html() .match(re)) {
           var match = $(this) .html() .match(re);        
-          var hashword = match.replace(re2, hidesting);
+          var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
@@ -118,7 +118,7 @@
       $('ol.breadcrumb li.active span') .each(function () {
         if ($(this) .html() .match(re)) {
           var match = $(this) .html() .match(re);        
-          var hashword = match.replace(re2, hidesting);
+          var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
@@ -128,7 +128,7 @@
       $('.panel .recent-replies') .each(function () {
         if ($(this) .html() .match(re)) {
           var match = $(this) .html() .match(re);        
-          var hashword = match.replace(re2, hidesting);
+          var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
@@ -140,7 +140,7 @@
       $('.search-result-text') .each(function () {
         if ($(this) .html() .match(re)) {
           var match = $(this) .html() .match(re);        
-          var hashword = match.replace(re2, hidesting);
+          var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });*/
@@ -149,12 +149,12 @@
       $('.header-topic-title span') .each(function () {
         if ($(this) .html() .match(re)) {
           var match = $(this) .html() .match(re);        
-          var hashword = match.replace(re2, hidesting);
+          var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
       var match = document.title.match(re);        
-      var hashword = match.replace(re2, hidesting);
+      var hashword = match[0].replace(re2, hidesting);
       document.title = document.title.replace(re, hashword);
     }
   }
