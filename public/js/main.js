@@ -119,7 +119,7 @@
         if ($(this) .html() .match(re)) {
           var match = $(this) .html() .match(re);        
           var hashword = match.replace(re2, hidesting);
-          $(this) .html($(this) .html() .replace(re, hashword));));
+          $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
       /* Causes stuff(random blinking on the homepage) to happen for some reason */
