@@ -78,7 +78,8 @@
       ];
     });
     $(window) .on('action:ajaxify.end', function (ev, data) {
-      if (data.url.match(/^category/) || data.url.match(/^unread/) || data.url.match(/^recent/) || data.url.match(/^popular/)|| data.url.match(/^search/)) {
+      //if (data.url.match(/^category/) || data.url.match(/^unread/) || data.url.match(/^recent/) || data.url.match(/^popular/)|| data.url.match(/^search/)) {
+      if (data.url.match(/^category/) || data.url.match(/^unread/) || data.url.match(/^recent/) || data.url.match(/^popular/)) {
         censorTopics();
       }
       if (data.url.match(/^topic/)) $(window) .on('scroll', censorTopics);
@@ -117,6 +118,8 @@
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
+      /* Causes stuff to happen for some reason
+
       //Change recent replies panel information
       $('.panel .recent-replies') .each(function () {
         if ($(this) .html() .match(re)) {
@@ -128,7 +131,8 @@
         if ($(this) .html() .match(re)) {
           $(this) .html($(this) .html() .replace(re, hashword));
         }
-      });
+      });*/
+
       //Change header information
       $('.header-topic-title span') .each(function () {
         if ($(this) .html() .match(re)) {
