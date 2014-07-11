@@ -117,6 +117,18 @@
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
+      //Change recent replies panel information
+      $('.panel .recent-replies') .each(function () {
+        if ($(this) .html() .match(re)) {
+          $(this) .html($(this) .html() .replace(re, hashword));
+        }
+      });
+      //Change search information
+      $('.search-result-text') .each(function () {
+        if ($(this) .html() .match(re)) {
+          $(this) .html($(this) .html() .replace(re, hashword));
+        }
+      });
       //Change header information
       $('.header-topic-title span') .each(function () {
         if ($(this) .html() .match(re)) {
