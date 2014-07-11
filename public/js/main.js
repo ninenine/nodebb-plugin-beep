@@ -126,4 +126,4 @@
       document.title = document.title.replace(re, hashword);
     }
   }
-});
+}());
