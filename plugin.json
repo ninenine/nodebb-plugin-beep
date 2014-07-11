@@ -4,13 +4,17 @@
 	"description": "NodeBB Plugin that allows users to censor curse words in their posts.",
 	"url": "https://github.com/ninenine/nodebb-plugin-beep",
 	"library": "./index.js",
+	"templates":"public/templates",
 	"hooks": [
-		{ "hook": "filter:post.parse", "method": "parse", "callbacked": true, "priority": 6 }
+		{ "hook": "action:app.load", "method": "init" },
+        { "hook": "filter:admin.header.build", "method": "admin.menu" },
+        { "hook": "filter:post.parse", "method": "parse", "callbacked": true, "priority": 6 }
 	],
 	"staticDirs": {
 		"public": "./public"
 	},
 	"scripts": [
 		"public/js/main.js"
-	]
+	],
+	"minver": "0.4.0"
 }
