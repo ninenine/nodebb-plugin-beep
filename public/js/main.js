@@ -78,7 +78,8 @@
       ];
     });
     $(window) .on('action:ajaxify.end', function (ev, data) {
-      if (data.url.match(/^category/) || data.url.match(/^unread/) || data.url.match(/^recent/) || data.url.match(/^popular/)|| data.url.match(/^search/)) {
+      //TODO --> data.url.match(/^search/)
+      if (data.url.match(/^category/) || data.url.match(/^unread/) || data.url.match(/^recent/) || data.url.match(/^popular/)) {
         censorTopics();
       }
       if (data.url.match(/^topic/)) $(window) .on('scroll', censorTopics);
@@ -101,7 +102,7 @@
       //Change topic title on topic list
       $('.category-item .topic-title') .each(function () {
         if ($(this) .html() .match(re)) {
-          var match = $(this) .html() .match(re);        
+          var match = $(this) .html() .match(re);
           var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
@@ -109,7 +110,7 @@
       //Change topic title on topic
       $('h3.topic-title p.topic-title') .each(function () {
         if ($(this) .html() .match(re)) {
-          var match = $(this) .html() .match(re);        
+          var match = $(this) .html() .match(re);
           var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
@@ -117,7 +118,7 @@
       //Change Breadcrump
       $('ol.breadcrumb li.active span') .each(function () {
         if ($(this) .html() .match(re)) {
-          var match = $(this) .html() .match(re);        
+          var match = $(this) .html() .match(re);
           var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
@@ -133,7 +134,6 @@
         }
       });
       */
-  
       /* Won't work because of highlighting */
       /*
       //Change search information
@@ -143,19 +143,21 @@
           var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
-      });*/
-
+      });
+      */
       //Change header information
       $('.header-topic-title span') .each(function () {
         if ($(this) .html() .match(re)) {
-          var match = $(this) .html() .match(re);        
+          var match = $(this) .html() .match(re);
           var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
-      var match = document.title.match(re);        
-      var hashword = match[0].replace(re2, hidesting);
-      document.title = document.title.replace(re, hashword);
+      if (document.title.match(re)) {
+        var match = document.title.match(re);
+        var hashword = match[0].replace(re2, hidesting);
+        document.title = document.title.replace(re, hashword);
+      }
     }
   }
-}());
+});
