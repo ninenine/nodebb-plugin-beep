@@ -3,7 +3,7 @@
   var badwords = '';
   jQuery('document') .ready(function () {
     $.get(RELATIVE_PATH + '/api/plugins/beep') .success(function (banned_words) {
-      badwords = banned_words;
+      badwords = banned_words.split(',');
     }) .fail(function () {
       badwords = [
         'anal',
