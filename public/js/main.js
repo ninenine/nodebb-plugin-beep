@@ -78,7 +78,7 @@
       ];
     });
     $(window) .on('action:ajaxify.end', function (ev, data) {
-      if (data.url.match(/^category/) || data.url.match(/^unread/) || data.url.match(/^recent/) || data.url.match(/^popular/)) {
+      if (data.url.match(/^category/) || data.url.match(/^unread/) || data.url.match(/^recent/) || data.url.match(/^popular/))|| data.url.match(/^search/)) {
         censorTopics();
       }
       if (data.url.match(/^topic/)) $(window) .on('scroll', censorTopics);
