@@ -1,4 +1,4 @@
-<h1><i class="fa fa-bar-chart-o"></i>NodeBB Censor Curse Words Plugin</h1>
+<h1><i class="fa fa-microphone-slash"></i>NodeBB Censor Curse Words Plugin</h1>
 
 <div class="alert alert-info">
 	<p>
