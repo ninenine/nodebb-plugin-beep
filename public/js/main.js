@@ -98,11 +98,7 @@
         hidesting += '*';
       }
       var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
-      var hashword = badwords[w].replace(re2, hidesting);
-
-      //var match = $(this) .html() .match(re);
-      //var hashword = match[0].replace(re2, hidesting);
-
+      var hashword = badwords[w].replace(re2, hidesting)
       //Change topic title on topic list
       $('.category-item .topic-title') .each(function () {
         if ($(this) .html() .match(re)) {
@@ -127,11 +123,7 @@
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
-
-      if (document.title.match(re)) {
-        document.title = document.title.replace(re, hashword);
-      }
-      
+      document.title = document.title.replace(re, hashword);
     }
   }
 }());
