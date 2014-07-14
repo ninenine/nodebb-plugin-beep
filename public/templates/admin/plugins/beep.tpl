@@ -23,9 +23,11 @@ vagina,wank,whore</pre>
 		<button class="btn btn-lg btn-primary" id="save" type="button">Save</button>
 	</fieldset>
 </form>
+<br/>
 <div class="alert alert-warning">
 	<p>
-		Urls with banned words will also be blocked. They mostly 404.
+		<b>Urls</b> with banned words will also be blocked. 
+		They mostly just 404.
 	</p>
 </div>
 <script type="text/javascript">
