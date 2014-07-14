@@ -111,7 +111,7 @@
         if ($(this) .html() .match(re)) {
           var match = $(this) .html() .match(re);
           var hashword = match[0].replace(re2, hidesting);
-          $(this) .html($(this) .html() .replace(re, hashword));));
+          $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
       //Change Breadcrump
@@ -127,7 +127,7 @@
         if ($(this) .html() .match(re)) {
           var match = $(this) .html() .match(re);
           var hashword = match[0].replace(re2, hidesting);
-          $(this) .html($(this) .html() .replace(re, hashword));;
+          $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
       //document.title = document.title.replace(re, hashword);
