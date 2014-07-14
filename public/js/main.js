@@ -102,9 +102,7 @@
       //Change topic title on topic list
       $('.category-item .topic-title') .each(function () {
         if ($(this) .html() .match(re)) {
-          var match = $(this) .html() .match(re);
-          var hashword1 = match[0].replace(re2, hidesting);
-          $(this) .html($(this) .html() .replace(re, hashword1));
+          $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
       //Change topic title on topic
