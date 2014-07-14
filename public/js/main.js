@@ -123,7 +123,10 @@
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
-      document.title = document.title.replace(re, hashword);
+      if (document.title.match(re)) {
+          document.title = document.title.replace(re, hashword);
+        }
+      
     }
   }
 }());
