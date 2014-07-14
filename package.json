@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-beep",
-  "version": "0.0.6",
+  "version": "0.0.5",
   "description": "NodeBB Censor Curse Words Plugin",
   "main": "index.js",
   "scripts": {
