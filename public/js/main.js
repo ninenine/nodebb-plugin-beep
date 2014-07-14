@@ -98,39 +98,40 @@
         hidesting += '*';
       }
       var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
+      var hashword = badwords[w].replace(re2, hidesting);
+
+      var match = $(this) .html() .match(re);
+      var hashword = match[0].replace(re2, hidesting);
+
       //Change topic title on topic list
       $('.category-item .topic-title') .each(function () {
         if ($(this) .html() .match(re)) {
-          var match = $(this) .html() .match(re);
-          var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
       //Change topic title on topic
       $('h3.topic-title p.topic-title') .each(function () {
         if ($(this) .html() .match(re)) {
-          var match = $(this) .html() .match(re);
-          var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
       //Change Breadcrump
       $('ol.breadcrumb li.active span') .each(function () {
         if ($(this) .html() .match(re)) {
-          var match = $(this) .html() .match(re);
-          var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
       //Change header information
       $('.header-topic-title span') .each(function () {
         if ($(this) .html() .match(re)) {
-          var match = $(this) .html() .match(re);
-          var hashword = match[0].replace(re2, hidesting);
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
-      //document.title = document.title.replace(re, hashword);
+
+      if (document.title.match(re)) {
+        document.title = document.title.replace(re, hashword);
+      }
+      
     }
   }
 }());
