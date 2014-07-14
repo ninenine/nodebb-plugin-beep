@@ -100,8 +100,8 @@
       var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
       var hashword = badwords[w].replace(re2, hidesting);
 
-      var match = $(this) .html() .match(re);
-      var hashword = match[0].replace(re2, hidesting);
+      //var match = $(this) .html() .match(re);
+      //var hashword = match[0].replace(re2, hidesting);
 
       //Change topic title on topic list
       $('.category-item .topic-title') .each(function () {
