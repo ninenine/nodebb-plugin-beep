@@ -1,38 +1,43 @@
-(function() {
-  "use strict";
+(function () {
+  'use strict';
   var winston = module.parent.require('winston'),
   fs = require('fs'),
   path = require('path'),
-    meta = module.parent.require('./meta'),
+  meta = module.parent.require('./meta'),
   Beep = {
     banned_words: undefined,
-    onLoad: function (app, middleware, controllers, callback) {
+    init: function (app, middleware, controllers, callback) {
       function render(req, res, next) {
-        res.render('admin/plugins/beep', {});
+        res.render('admin/plugins/beep', {
+        });
       }
       app.get('/admin/plugins/beep', middleware.admin.buildHeader, render);
       app.get('/api/admin/plugins/beep', render);
-    app.get('/api/plugins/beep', function (req, res) {
-      if (Beep.banned_words) {
-        res.send(200, Beep.banned_words);
-      } else {
-        res.send(501);
-      }
-   });
-
+      app.get('/api/plugins/beep', function (req, res) {
+        if (Beep.banned_words) {
+          res.send(200, Beep.banned_words);
+        } else {
+          res.send(501);
+        }
+      });
+      Beep.loadList();
       callback();
     },
-    init: function() {
-    // Load Banned Words from config
-    meta.settings.getOne('beep', 'id', function (err, banned_words) {
-    if (!err && banned_words && banned_words.length) {
-      Beep.banned_words = banned_words;
-    } else {
-      Beep.banned_words = 'anal,anus,arse,ass,ballsack,balls,bastard,bitch,biatch,bloody,blowjob,blow job,bollock,bollok,boner,boob,bugger,bum,butt,buttplug,clitoris,cock,coon,crap,cunt,damn,dick,dildo,dyke,fag,feck,fellate,fellatio,felching,fuck,f u c k,fudgepacker,fudge packer,flange,homo,jerk,jizz,knobend,knob end,labia,muff,nigger,nigga,penis,piss,poop,prick,pube,pussy,queer,sex,shit,s hit,sh1t,slut,smegma,spunk,tit,tosser,turd,twat,vagina,wank,whore';
-      winston.info('Default list of Banned Words is enabled. Please go to administration panel to change the list.');
-    }
-    });
-
+    loadList: function () {
+      // Load Banned Words from config
+      meta.settings.get('beep', 'id', function (err, banned_words) {
+        if (!err && banned_words && banned_words.length) {
+          Beep.banned_words = banned_words;
+        } else {
+          Beep.banned_words = 'anal,anus,arse,ass,ballsack,balls,bastard,bitch,biatch,bloody,blowjob,blow job,bollock,bollok,boner,boob,bugger,bum,butt,buttplug,clitoris,cock,coon,crap,cunt,damn,dick,dildo,dyke,fag,feck,fellate,fellatio,felching,fuck,f u c k,fudgepacker,fudge packer,flange,homo,jerk,jizz,knobend,knob end,labia,muff,nigger,nigga,penis,piss,poop,prick,pube,pussy,queer,sex,shit,s hit,sh1t,slut,smegma,spunk,tit,tosser,turd,twat,vagina,wank,whore';
+          winston.info('Default list of Banned Words is enabled. Please go to administration panel to change the list.');
+        }
+      });
+    },
+    onListChange: function (hash) {
+      if (hash === 'settings:beep') {
+        Beep.loadList();
+      }
     },
     parse: function (postContent, callback) {
       var badwords = Beep.banned_words.split(',');
@@ -64,4 +69,4 @@
   };
   Beep.init();
   module.exports = Beep;
-})();
+}) ();
