@@ -24,7 +24,7 @@
     },
     loadList: function () {
       // Load Banned Words from config
-      meta.settings.get('beep', 'id', function (err, banned_words) {
+      meta.settings.getOne('beep', 'id', function (err, banned_words) {
         if (!err && banned_words && banned_words.length) {
           Beep.banned_words = banned_words;
         } else {
