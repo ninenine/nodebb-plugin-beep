@@ -8,8 +8,7 @@
     banned_words: undefined,
     init: function (app, middleware, controllers, callback) {
       function render(req, res, next) {
-        res.render('admin/plugins/beep', {
-        });
+        res.render('admin/plugins/beep', {});
       }
       app.get('/admin/plugins/beep', middleware.admin.buildHeader, render);
       app.get('/api/admin/plugins/beep', render);
