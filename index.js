@@ -67,6 +67,5 @@
       },
     }
   };
-  Beep.init();
   module.exports = Beep;
 }) ();
