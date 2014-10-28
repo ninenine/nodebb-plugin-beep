@@ -29,5 +29,9 @@
   "readme": "",
   "readmeFilename": "README.md",
   "_id": "nodebb-plugin-beep@0.0.1",
-  "_from": "nodebb-plugin-beep@~0.0.1"
+  "_from": "nodebb-plugin-beep@~0.0.1",
+  "dependencies": {
+    "underscore": "^1.7.0",
+    "underscore.string": "^2.3.3"
+  }
 }
