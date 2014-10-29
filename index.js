@@ -1,10 +1,14 @@
 (function () {
   'use strict';
   var winston = module.parent.require('winston'),
+  _ = require('underscore'),
   fs = require('fs'),
   path = require('path'),
-  meta = module.parent.require('./meta'),
-  Beep = {
+  meta = module.parent.require('./meta');
+
+  _.str = require('underscore.string');
+  _.mixin(_.str.exports()); // Mix in non-conflict functions to Underscore namespace
+  var Beep = {
     banned_words: undefined,
     init: function (app, middleware, controllers, callback) {
       function render(req, res, next) {
@@ -40,6 +44,7 @@
     },
     parse: function (postContent, callback) {
       var badwords = Beep.banned_words.split(',');
+      badwords = _.map(badwords, function(word) { return _.trim(word); });
       for (var w in badwords) {
         var re = new RegExp(badwords[w], 'ig');
         var hidesting = '';
@@ -63,7 +68,7 @@
           'name': 'Censor Curse Words'
         });
         callback(null, custom_header);
-      },
+      }
     }
   };
   module.exports = Beep;
