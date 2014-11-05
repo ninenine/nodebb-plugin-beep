@@ -131,11 +131,23 @@
         }
       });
       if (document.title.match(re)) {
-          var match = $(this) .html() .match(re);
+          var match = document.title.match(re);
           var hashword = match[0].replace(re2, hidesting);
           document.title = document.title.replace(re, hashword);
         }
-      
+
+      // Meta title and og:title
+      $('meta[name="title"], meta[property="og:title"]') .each(function () {
+        var title = $(this).attr('content');
+        if (title) {
+          var match = title.match(re);
+          if (match && 0 < match.length) {
+            var hashword = match[0].replace(re2, hidesting);
+            $(this).attr('content', title.replace(re, hashword));
+          }
+        }
+      });
+
     }
   }
 }());
