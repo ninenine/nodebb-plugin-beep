@@ -116,7 +116,7 @@
       });
       //Change Breadcrumb
       var rnotwhite = /\S/;
-      $('ol.breadcrumb li span').contents().filter(function() {
+      $('ol.breadcrumb li span, ol.breadcrumb li').contents().filter(function() {
         return this.nodeType === 3 && rnotwhite.test($(this).text()); // Filter out empty text nodes. We only want text nodes with text.
       }).text(function(i, text) {
         var match = text.match(re);
