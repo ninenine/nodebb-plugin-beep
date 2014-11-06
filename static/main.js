@@ -114,12 +114,15 @@
           $(this) .html($(this) .html() .replace(re, hashword));
         }
       });
-      //Change Breadcrump
-      $('ol.breadcrumb li.active span') .each(function () {
-        if ($(this) .html() .match(re)) {
-          var match = $(this) .html() .match(re);
+      //Change Breadcrumb
+      var rnotwhite = /\S/;
+      $('ol.breadcrumb li span, ol.breadcrumb li').contents().filter(function() {
+        return this.nodeType === 3 && rnotwhite.test($(this).text()); // Filter out empty text nodes. We only want text nodes with text.
+      }).text(function(i, text) {
+        var match = text.match(re);
+        if (match && 0 < match.length) {
           var hashword = match[0].replace(re2, hidesting);
-          $(this) .html($(this) .html() .replace(re, hashword));
+          this.nodeValue = text.replace(re, hashword);
         }
       });
       //Change header information
