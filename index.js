@@ -10,7 +10,10 @@
   _.mixin(_.str.exports()); // Mix in non-conflict functions to Underscore namespace
   var Beep = {
     banned_words: undefined,
-    init: function (app, middleware, controllers, callback) {
+    init: function (params, callback) {
+      var router = params.router;
+      var middleware = params.middleware;
+      
       function render(req, res, next) {
         res.render('admin/plugins/beep', {});
       }
