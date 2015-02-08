@@ -17,9 +17,9 @@
       function render(req, res, next) {
         res.render('admin/plugins/beep', {});
       }
-      app.get('/admin/plugins/beep', middleware.admin.buildHeader, render);
-      app.get('/api/admin/plugins/beep', render);
-      app.get('/api/plugins/beep', function (req, res) {
+      router.get('/admin/plugins/beep', middleware.admin.buildHeader, render);
+      router.get('/api/admin/plugins/beep', render);
+      router.get('/api/plugins/beep', function (req, res) {
         if (Beep.banned_words) {
           res.send(200, Beep.banned_words);
         } else {
