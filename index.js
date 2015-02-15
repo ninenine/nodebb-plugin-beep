@@ -10,13 +10,16 @@
   _.mixin(_.str.exports()); // Mix in non-conflict functions to Underscore namespace
   var Beep = {
     banned_words: undefined,
-    init: function (app, middleware, controllers, callback) {
+    init: function (params, callback) {
+      var router = params.router;
+      var middleware = params.middleware;
+      
       function render(req, res, next) {
         res.render('admin/plugins/beep', {});
       }
-      app.get('/admin/plugins/beep', middleware.admin.buildHeader, render);
-      app.get('/api/admin/plugins/beep', render);
-      app.get('/api/plugins/beep', function (req, res) {
+      router.get('/admin/plugins/beep', middleware.admin.buildHeader, render);
+      router.get('/api/admin/plugins/beep', render);
+      router.get('/api/plugins/beep', function (req, res) {
         if (Beep.banned_words) {
           res.send(200, Beep.banned_words);
         } else {
@@ -42,7 +45,11 @@
         Beep.loadList();
       }
     },
-    parse: function (postContent, callback) {
+    parse: function (data, callback) {
+      if (!data || !data.postData || !data.postData.content) {
+        return callback(null, data);
+      }
+      var postContent = data.postData.content;
       var badwords = Beep.banned_words.split(',');
       badwords = _.map(badwords, function(word) { return _.trim(word); });
       for (var w in badwords) {
@@ -55,10 +62,10 @@
         if (postContent.match(re)) {
           var match = postContent.match(re);
           var hashword = match[0].replace(re2, hidesting);
-          postContent = postContent.replace(re, hashword);
+          data.postData.content = postContent.replace(re, hashword);
         }
       }
-      callback(null, postContent);
+      callback(null, data);
     },
     admin: {
       menu: function (custom_header, callback) {
