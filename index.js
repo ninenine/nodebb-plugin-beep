@@ -21,9 +21,9 @@
       router.get('/api/admin/plugins/beep', render);
       router.get('/api/plugins/beep', function (req, res) {
         if (Beep.banned_words) {
-          res.send(200, Beep.banned_words);
+          res.status(200).send(Beep.banned_words);
         } else {
-          res.send(501);
+          res.status(501);
         }
       });
       Beep.loadList();
