@@ -7,7 +7,6 @@
 	"templates":"public/templates",
 	"hooks": [
 		{ "hook": "static:app.load", "method": "init" },
-		{ "hook": "filter:parse.post", "method": "parse", "priority": 5 },
 		{ "hook": "action:settings.set", "method": "onListChange" },
         { "hook": "filter:admin.header.build", "method": "admin.menu" }
 	],

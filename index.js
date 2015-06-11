@@ -45,28 +45,6 @@
         Beep.loadList();
       }
     },
-    parse: function (data, callback) {
-      if (!data || !data.postData || !data.postData.content) {
-        return callback(null, data);
-      }
-      var postContent = data.postData.content;
-      var badwords = Beep.banned_words.split(',');
-      badwords = _.map(badwords, function(word) { return _.trim(word); });
-      for (var w in badwords) {
-        var re = new RegExp(badwords[w], 'ig');
-        var hidesting = '';
-        for (var i = 0; i < badwords[w].length - 2; i++) {
-          hidesting += '*';
-        }
-        var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
-        if (postContent.match(re)) {
-          var match = postContent.match(re);
-          var hashword = match[0].replace(re2, hidesting);
-          data.postData.content = postContent.replace(re, hashword);
-        }
-      }
-      callback(null, data);
-    },
     admin: {
       menu: function (custom_header, callback) {
         custom_header.plugins.push({
