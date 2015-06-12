@@ -86,7 +86,7 @@
         $(window).on('action:categories.loaded', censorTopics);
         $(window).on('action:categories.new_topic.loaded', censorTopics);
         $(window).on('action:topic.loaded', censorTopics);
-        socket.on('event:post_edited', function() {
+          socket.on('event:post_edited', function() {
             setTimeout(censorTopics, 270);
         });
     });
@@ -99,17 +99,41 @@
                 hidesting += '*';
             }
             var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
-
-            //Document Body
-            $('body').children().each(function(index) {
-                if ($(this).text().match(re) && !($(this).find('a').text().match(re))) {
-                    var match = $(this).text().match(re);
+            //Change topic title on topic list
+            $('.category-item .topic-title').each(function() {
+                if ($(this).html().match(re)) {
+                    var match = $(this).html().match(re);
                     var hashword = match[0].replace(re2, hidesting);
                     $(this).html($(this).html().replace(re, hashword));
                 }
             });
-
-            //Document title
+            //Change topic title on topic
+            $('h3.topic-title p.topic-title').each(function() {
+                if ($(this).html().match(re)) {
+                    var match = $(this).html().match(re);
+                    var hashword = match[0].replace(re2, hidesting);
+                    $(this).html($(this).html().replace(re, hashword));
+                }
+            });
+            //Change Breadcrumb
+            var rnotwhite = /\S/;
+            $('ol.breadcrumb li span, ol.breadcrumb li').contents().filter(function() {
+                return this.nodeType === 3 && rnotwhite.test($(this).text()); // Filter out empty text nodes. We only want text nodes with text.
+            }).text(function(i, text) {
+                var match = text.match(re);
+                if (match && match.length > 0) {
+                    var hashword = match[0].replace(re2, hidesting);
+                    this.nodeValue = text.replace(re, hashword);
+                }
+            });
+            //Change header information
+            $('.header-topic-title span').each(function() {
+                if ($(this).html().match(re)) {
+                    var match = $(this).html().match(re);
+                    var hashword = match[0].replace(re2, hidesting);
+                    $(this).html($(this).html().replace(re, hashword));
+                }
+            });
             if (document.title.match(re)) {
                 var match = document.title.match(re);
                 var hashword = match[0].replace(re2, hidesting);
