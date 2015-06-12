@@ -63,8 +63,10 @@
                 var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
                 if (postContent.match(re)) {
                     var match = postContent.match(re);
-                    var hashword = match[0].replace(re2, hidesting);
-                    data.postData.content = postContent.replace(re, hashword);
+                    for (m in match){
+                      var hashword = match[m].replace(re2, hidesting);
+                      data.postData.content = postContent.replace(re, hashword);
+                    }
                 }
             }
             callback(null, data);
