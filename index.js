@@ -51,10 +51,9 @@
             }
             var postContent = data.postData.content;
             var badwords = Beep.banned_words.split(',');
-            /*
             badwords = _.map(badwords, function(word) {
                 return _.trim(word);
-            });*/
+            });
             for (var w in badwords) {
                 var re = new RegExp(badwords[w], 'ig');
                 var hidesting = '';
@@ -64,12 +63,11 @@
                 var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
                 if (postContent.match(re)) {
                     var match = postContent.match(re);
-                    if (match && match.length > 0) {
-                      var hashword = match[0].replace(re2, hidesting);
-                      data.postData.content = postContent.replace(re, hashword);
-                    }
+                    var hashword = match[0].replace(re2, hidesting);
+                    postContent = postContent.replace(re, hashword);
                 }
             }
+            data.postData.content = postContent;
             callback(null, data);
         },
         admin: {
