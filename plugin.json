@@ -13,6 +13,5 @@
 	],
 	"scripts": [
 		"static/main.js"
-	],
-	"minver": "^0.5.0"
+	]
 }
