@@ -99,16 +99,8 @@
                 hidesting += '*';
             }
             var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
-            //Change topic title on topic list
-            $('[component="topic/header"] span').each(function() {
-                if ($(this).html().match(re)) {
-                    var match = $(this).html().match(re);
-                    var hashword = match[0].replace(re2, hidesting);
-                    $(this).html($(this).html().replace(re, hashword));
-                }
-            });
-            //Change topic title on topic
-            $('[component="topic/title"] span').each(function() {
+            //Change topic title on topic list and topic
+            $('[component="topic/header"] > *, [component="post/header"] > *').each(function() {
                 if ($(this).html().match(re)) {
                     var match = $(this).html().match(re);
                     var hashword = match[0].replace(re2, hidesting);
