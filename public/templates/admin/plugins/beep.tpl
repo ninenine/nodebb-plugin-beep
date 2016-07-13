@@ -38,11 +38,8 @@ vagina,wank,whore" />
 				app.alert({
 					type: 'success',
 					alert_id: 'beep-saved',
-					title: 'Restart Required',
-					message: 'Please restart your NodeBB to complete configuration of this plugin',
-					clickfn: function() {
-						socket.emit('admin.restart');
-					}
+					title: 'Success',
+					message: 'Curse word settings have been successfully saved'
 				});
 			});
 		});
