@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-    var badwords = '';
+    var badwords = [];
     jQuery('document').ready(function() {
         $.get(RELATIVE_PATH + '/api/plugins/beep').success(function(banned_words) {
             badwords = banned_words.split(',');
@@ -100,7 +100,7 @@
             }
             var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
             //Change topic title on topic list
-            $('.category-item .topic-title').each(function() {
+            $('[component="topic/header"]').each(function() {
                 if ($(this).html().match(re)) {
                     var match = $(this).html().match(re);
                     var hashword = match[0].replace(re2, hidesting);
@@ -108,7 +108,7 @@
                 }
             });
             //Change topic title on topic
-            $('h3.topic-title p.topic-title').each(function() {
+            $('[component="topic/title"]').each(function() {
                 if ($(this).html().match(re)) {
                     var match = $(this).html().match(re);
                     var hashword = match[0].replace(re2, hidesting);
