@@ -100,7 +100,7 @@
             }
             var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
             //Change topic title on topic list
-            $('[component="topic/header"]').each(function() {
+            $('[component="topic/header"] span').each(function() {
                 if ($(this).html().match(re)) {
                     var match = $(this).html().match(re);
                     var hashword = match[0].replace(re2, hidesting);
@@ -108,7 +108,7 @@
                 }
             });
             //Change topic title on topic
-            $('[component="topic/title"]').each(function() {
+            $('[component="topic/title"] span').each(function() {
                 if ($(this).html().match(re)) {
                     var match = $(this).html().match(re);
                     var hashword = match[0].replace(re2, hidesting);
