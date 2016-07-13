@@ -15,18 +15,17 @@ felching,fuck,f u c k,fudgepacker,fudge packer,flange,homo,jerk,jizz,knobend,kno
 nigga,penis,piss,poop,prick,pube,pussy,queer,sex,shit,s hit,sh1t,slut,smegma,spunk,tit,tosser,turd,twat,
 vagina,wank,whore" />
 		</div>
+
+		<div class="form-group">
+			<label for="urls"><i>comma-separated</i> list of Banned URLs</label>
+			<input type="text" class="form-control" id="urls" name="urls" placeholder="eg. google.com,yahoo.com" value="" />
+		</div>
 		
 
 		<button class="btn btn-lg btn-primary" id="save" type="button">Save</button>
 	</fieldset>
 </form>
-<br/>
-<div class="alert alert-warning">
-	<p>
-		<b>Urls</b> with banned words will also be blocked. 
-		They mostly just 404.
-	</p>
-</div>
+
 <script type="text/javascript">
 	require(['settings'], function(Settings) {
 		Settings.load('beep', $('.beep-settings'));
