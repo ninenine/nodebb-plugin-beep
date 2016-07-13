@@ -11,6 +11,7 @@
     var Beep = {
         banned_words: undefined,
         banned_urls: undefined,
+        illegal_words: undefined,
         init: function(params, callback) {
             var router = params.router;
             var middleware = params.middleware;
@@ -33,7 +34,6 @@
         loadList: function() {
             // Load Banned Words from config
             meta.settings.get('beep', function(err, hash) {
-                console.log(hash);
                 if (!err && hash.id && hash.id.length) {
                     Beep.banned_words = hash.id;
                 } else {
@@ -42,6 +42,7 @@
                 }
 
                 Beep.banned_urls = hash.urls || [];
+                Beep.illegal_words = hash.illegal || [];
             });
         },
         onListChange: function(hash) {
@@ -83,10 +84,23 @@
                 postContent = postContent.replace(re, '[link removed]');
             }
 
-            console.log(postContent);
-
             data.postData.content = postContent;
             callback(null, data);
+        },
+        checkForIllegalWords: function(data, callback) {
+            var postContent = data.content;
+            var illegal_words = Beep.illegal_words.split(',');
+            illegal_words = _.map(illegal_words, function(word) {
+                return _.trim(word);
+            });
+
+            for (var w in illegal_words) {
+                if (postContent.toLowerCase().match(illegal_words[w])) {
+                    return callback(new Error('You may not use the word "' + illegal_words[w] + '" in your post.'))
+                }
+            }
+
+            callback(null);
         },
         admin: {
             menu: function(custom_header, callback) {

@@ -8,7 +8,10 @@
 <form role="form" class="beep-settings">
 	<fieldset>
 		<div class="form-group">
-			<label for="id"><i>comma-separated</i> list of Banned Words</label>
+			<label for="illegal"><i>comma-separated</i> list of Illegal Words (post will not be allowed)</label>
+			<input type="text" class="form-control" id="illegal" name="illegal" placeholder="eg. anal,anus,arse,ass,ballsack" value="" />
+
+			<label for="id"><i>comma-separated</i> list of Banned Words (post will be censored with asterisks)</label>
 			<input type="text" class="form-control" id="id" name="id" placeholder="eg. anal,anus,arse,ass,ballsack" value="anal,anus,arse,ass,ballsack,balls,bastard,bitch,biatch,bloody,blowjob,blow job,bollock,bollok,boner,
 boob,bugger,bum,butt,buttplug,clitoris,cock,coon,crap,cunt,damn,dick,dildo,dyke,fag,feck,fellate,fellatio,
 felching,fuck,f u c k,fudgepacker,fudge packer,flange,homo,jerk,jizz,knobend,knob end,labia,muff,nigger,
@@ -17,7 +20,7 @@ vagina,wank,whore" />
 		</div>
 
 		<div class="form-group">
-			<label for="urls"><i>comma-separated</i> list of Banned URLs</label>
+			<label for="urls"><i>comma-separated</i> list of Banned URLs (link will be shown as [link removed])</label>
 			<input type="text" class="form-control" id="urls" name="urls" placeholder="eg. google.com,yahoo.com" value="" />
 		</div>
 		
