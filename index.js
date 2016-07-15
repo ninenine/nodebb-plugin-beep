@@ -78,10 +78,10 @@
                     postContent = postContent.replace(re, hashword);
                 }
             }
-            // Need to change the behavour to pick up <a> tag and replace it.
+            
             for (var u in badurls) {
                 //var re = new RegExp('!?\\[[\\s\\S]*?\\]\\([\\s\\S]*?' + badurls[u] + '[\\s\\S]*?\\)', 'ig')
-                var re = new RegExp(badurls[u], 'ig')
+                var re = new RegExp(badurls[u], 'ig') //just werks :)
                 postContent = postContent.replace(re, '[link removed]');
             }
             
