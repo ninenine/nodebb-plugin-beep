@@ -41,8 +41,8 @@
                     winston.info('Default list of Banned Words is enabled. Please go to administration panel to change the list.');
                 }
 
-                Beep.banned_urls = hash.urls || [];
-                Beep.illegal_words = hash.illegal || [];
+                Beep.banned_urls = hash.urls || "";
+                Beep.illegal_words = hash.illegal || "";
             });
         },
         onListChange: function(hash) {
@@ -55,12 +55,12 @@
                 return callback(null, data);
             }
             var postContent = data.postData.content;
-            var badwords = Beep.banned_words.split(',');
+            var badwords = (Beep.banned_words ? Beep.banned_words.split(',') : []);
             badwords = _.map(badwords, function(word) {
                 return _.trim(word);
             });
 
-            var badurls = Beep.banned_urls.split(',');
+            var badurls = (Beep.banned_urls ? Beep.banned_urls.split(',') : []);
             badurls = _.map(badurls, function(word) {
                 return _.trim(word);
             });
@@ -89,7 +89,7 @@
         },
         checkForIllegalWords: function(data, callback) {
             var postContent = data.content;
-            var illegal_words = Beep.illegal_words.split(',');
+            var illegal_words = (Beep.illegal_words ? Beep.illegal_words.split(',') : []);
             illegal_words = _.map(illegal_words, function(word) {
                 return _.trim(word);
             });
