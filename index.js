@@ -100,7 +100,7 @@
                 }
             }
 
-            callback(null);
+            callback(null, data);
         },
         admin: {
             menu: function(custom_header, callback) {
