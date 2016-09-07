@@ -54,7 +54,20 @@
             if (!data || !data.postData || !data.postData.content) {
                 return callback(null, data);
             }
-            var postContent = data.postData.content;
+
+            data.postData.content = Beep.parseContent(data.postData.content);
+            callback(null, data);
+        },
+        parseRaw: function(content, callback) {
+            if (!content) {
+                return callback(null, content);
+            }
+
+            content = Beep.parseContent(content);
+            callback(null, content);
+        },
+        parseContent: function(content) {
+
             var badwords = (Beep.banned_words ? Beep.banned_words.split(',') : []);
             badwords = _.map(badwords, function(word) {
                 return _.trim(word);
@@ -72,21 +85,20 @@
                     hidesting += '\\*';
                 }
                 var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
-                if (postContent.match(re)) {
-                    var match = postContent.match(re);
+                if (content.match(re)) {
+                    var match = content.match(re);
                     var hashword = match[0].replace(re2, hidesting);
-                    postContent = postContent.replace(re, hashword);
+                    content = content.replace(re, hashword);
                 }
             }
-            
+
             for (var u in badurls) {
                 //var re = new RegExp('!?\\[[\\s\\S]*?\\]\\([\\s\\S]*?' + badurls[u] + '[\\s\\S]*?\\)', 'ig')
-                var re = new RegExp(badurls[u], 'ig') //just werks :)
-                postContent = postContent.replace(re, '[link removed]');
+                var re = new RegExp(badurls[u], 'ig'); //just werks :)
+                content = content.replace(re, '[link removed]');
             }
-            
-            data.postData.content = postContent;
-            callback(null, data);
+
+            return content;
         },
         checkForIllegalWords: function(data, callback) {
             var postContent = data.content;
@@ -97,7 +109,7 @@
 
             for (var w in illegal_words) {
                 if (postContent.toLowerCase().match(illegal_words[w])) {
-                    return callback(new Error('You may not use the word "' + illegal_words[w] + '" in your post.'))
+                    return callback(new Error('You may not use the word "' + illegal_words[w] + '" in your post.'));
                 }
             }
 
