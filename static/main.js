@@ -82,6 +82,7 @@
                 censorTopics();
             }
             if (data.url.match(/^topic/)) $(window).on('scroll', censorTopics);
+            if (data.url.match(/^chats/)) censorChatTeaser();
         });
         $(window).on('action:categories.loaded', censorTopics);
         $(window).on('action:categories.new_topic.loaded', censorTopics);
@@ -144,6 +145,25 @@
                 }
             });
 
+        }
+    }
+    // Has to be a better way of doing this :/
+    function censorChatTeaser(){
+        for (var w in badwords) {
+            var re = new RegExp(badwords[w], 'ig');
+            var hidesting = '';
+            for (var i = 0; i < badwords[w].length - 2; i++) {
+                hidesting += '*';
+            }
+            var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
+            // Last Chat teaser
+            $('[component="chat/recent"] .teaser-content').each(function() {
+                if ($(this).html().match(re)) {
+                    var match = $(this).html().match(re);
+                    var hashword = match[0].replace(re2, hidesting);
+                    $(this).html($(this).html().replace(re, hashword));
+                }
+            });
         }
     }
 }());

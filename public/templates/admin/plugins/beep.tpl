@@ -25,7 +25,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-sm-2 col-xs-12 settings-header">Banned URLs <span class="label label-info">experimental</span></div>
+				<div class="col-sm-2 col-xs-12 settings-header">Banned URLs</div>
 				<div class="col-sm-10 col-xs-12">
 					<fieldset>
 
