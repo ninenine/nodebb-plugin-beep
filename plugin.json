@@ -8,10 +8,11 @@
 	"hooks": [
 		{ "hook": "static:app.load", "method": "init" },
 		{ "hook": "filter:parse.post", "method": "parse", "priority": 1 },
+		{ "hook": "filter:parse.raw", "method": "parseRaw", "priority": 1 },
 		{ "hook": "action:settings.set", "method": "onListChange" },
-        { "hook": "filter:admin.header.build", "method": "admin.menu" },
-        { "hook": "filter:topic.post", "method": "checkForIllegalWords" },
-        { "hook": "filter:topic.reply", "method": "checkForIllegalWords" }
+		{ "hook": "filter:admin.header.build", "method": "admin.menu" },
+		{ "hook": "filter:topic.post", "method": "checkForIllegalWords" },
+		{ "hook": "filter:topic.reply", "method": "checkForIllegalWords" }
 	],
 	"scripts": [
 		"static/main.js"
