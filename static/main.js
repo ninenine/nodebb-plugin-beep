@@ -87,7 +87,10 @@
         $(window).on('action:categories.loaded', censorTopics);
         $(window).on('action:categories.new_topic.loaded', censorTopics);
         $(window).on('action:topic.loaded', censorTopics);
-        $(window).on('action:topics.loaded', censorTopics);
+        $(window).on('action:topics.loaded', function() {
+            //delay to display the topics
+            setTimeout(censorTopics, 270);
+        });
           socket.on('event:post_edited', function() {
             setTimeout(censorTopics, 270);
         });
