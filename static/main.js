@@ -87,6 +87,7 @@
         $(window).on('action:categories.loaded', censorTopics);
         $(window).on('action:categories.new_topic.loaded', censorTopics);
         $(window).on('action:topic.loaded', censorTopics);
+        $(window).on('action:topics.loaded', censorTopics);
           socket.on('event:post_edited', function() {
             setTimeout(censorTopics, 270);
         });
@@ -101,7 +102,7 @@
             }
             var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
             //Change topic title on topic list and topic
-            $('[component="topic/header"] > *, [component="post/header"] > *').each(function() {
+            $('[component="topic/header"] [itemprop="url"], [component="post/header"] > *').each(function() {
                 if ($(this).html().match(re)) {
                     var match = $(this).html().match(re);
                     var hashword = match[0].replace(re2, hidesting);
