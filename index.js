@@ -43,6 +43,7 @@
 
                 Beep.banned_urls = hash.urls || "";
                 Beep.illegal_words = hash.illegal || "";
+                Beep.censorWholeWord = hash.censorWholeWord === 'on';
             });
         },
         onListChange: function(hash) {
@@ -80,15 +81,22 @@
 
             for (var w in badwords) {
                 var re = new RegExp('\\b'+badwords[w]+'\\b', 'ig');
-                var hidesting = '';
+                var hidestring = '';
+                var match;
                 for (var i = 0; i < badwords[w].length - 2; i++) {
-                    hidesting += '\\*';
+                    hidestring += '\\*';
                 }
-                var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
-                if (content.match(re)) {
-                    var match = content.match(re);
-                    var hashword = match[0].replace(re2, hidesting);
-                    content = content.replace(re, hashword);
+
+                if (!Beep.censorWholeWord) {
+                    var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
+                    if (re.test(content)) {
+                        match = content.match(re);
+                        var hashword = match[0].replace(re2, hidestring);
+                        content = content.replace(re, hashword);
+                    }
+                } else if (re.test(content)) {
+                    match = content.match(re);
+                    content = content.replace(re, '[censored]');
                 }
             }
 

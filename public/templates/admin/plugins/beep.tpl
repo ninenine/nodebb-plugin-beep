@@ -38,6 +38,20 @@
 				</div>
 			</div>
 
+			<div class="row">
+				<div class="col-sm-2 col-xs-12 settings-header">Censorship Settings</div>
+				<div class="col-sm-10 col-xs-12">
+					<fieldset>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="censorWholeWord">
+								Censor the entire word (as opposed to replacing the middle with <code>*</code>s)
+							</label>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+
 		</form>
 	</div>
 </div>
