@@ -78,7 +78,7 @@
             ];
         });
         $(window).on('action:ajaxify.end', function(ev, data) {
-            if (data.url.match(/^category/) || data.url.match(/^unread/) || data.url.match(/^recent/) || data.url.match(/^popular/) || data.url.match(/^topic/)) {
+            if (data.url.match(/^category/) || data.url.match(/^unread/) || data.url.match(/^recent/) || data.url.match(/^popular/) || data.url.match(/^topic/) || data.url.match(/^user/)) {
                 censorTopics();
             }
             if (data.url.match(/^topic/)) $(window).on('scroll', censorTopics);
@@ -105,8 +105,8 @@
             }
             var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
             //Change topic title on topic list and topic
-            $('[component="topic/header"] [itemprop="url"], [component="post/header"] > *').each(function() {
-                if ($(this).html().match(re)) {
+            $('[component="post"] .topic-title, [component="topic/header"] [itemprop="url"], [component="post/header"] > *').each(function() {
+                if (re.test($(this).html())){
                     var match = $(this).html().match(re);
                     var hashword = match[0].replace(re2, hidesting);
                     $(this).html($(this).html().replace(re, hashword));
@@ -125,13 +125,13 @@
             });
             //Change header information
             $('.header-topic-title span').each(function() {
-                if ($(this).html().match(re)) {
+                if (re.test($(this).html())){
                     var match = $(this).html().match(re);
                     var hashword = match[0].replace(re2, hidesting);
                     $(this).html($(this).html().replace(re, hashword));
                 }
             });
-            if (document.title.match(re)) {
+            if (re.test(document.title)){
                 var match = document.title.match(re);
                 var hashword = match[0].replace(re2, hidesting);
                 document.title = document.title.replace(re, hashword);
@@ -162,7 +162,7 @@
             var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
             // Last Chat teaser
             $('[component="chat/recent"] .teaser-content').each(function() {
-                if ($(this).html().match(re)) {
+                if (re.test($(this).html())){
                     var match = $(this).html().match(re);
                     var hashword = match[0].replace(re2, hidesting);
                     $(this).html($(this).html().replace(re, hashword));
