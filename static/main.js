@@ -1,6 +1,8 @@
 (function() {
     'use strict';
     var badwords = [];
+    var censorTopicsLock = false;
+
     jQuery('document').ready(function() {
         $.get(RELATIVE_PATH + '/api/plugins/beep').done(function(banned_words) {
             badwords = banned_words.split(',');
@@ -101,6 +103,12 @@
     });
 
     function censorTopics() {
+        if (censorTopicsLock || !badwords.length) {
+            return;
+        } else {
+            censorTopicsLock = true;
+        }
+
         var workingEl;
         var censor = function(match) {
             if (!config.beep.censorWholeWord) {
@@ -113,7 +121,7 @@
         var re = new RegExp('\\b(' + badwords.join('|') + ')\\b', 'ig');
 
         //Change topic title on topic list and topic
-        $('[component="post"] .topic-title, [component="topic/header"] [itemprop="url"], [component="post/header"] > *').each(function() {
+        $('[component="topic/title"], [component="post"] .topic-title, [component="category/topic"] .topic-title, [component="topic/header"] [itemprop="url"], [component="post/header"] > *').each(function() {
             workingEl = $(this);
             workingEl.html(workingEl.html().replace(re, censor));
         });
@@ -146,6 +154,8 @@
                 workingEl.attr('content', title.replace(re, censor));
             }
         });
+
+        censorTopicsLock = false;
     }
 
     // Has to be a better way of doing this :/
