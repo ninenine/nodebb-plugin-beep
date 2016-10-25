@@ -80,6 +80,14 @@
             content = Beep.parseContent(content);
             callback(null, content);
         },
+        parseSignature: function(data, callback) {
+            if (!data || !data.userData || !data.userData.signature) {
+                return callback(null, content);
+            }
+
+            data.userData.signature = Beep.parseContent(data.userData.signature);
+            callback(null, data);
+        },
         parseContent: function(content) {
 
             var badwords = (Beep.banned_words ? Beep.banned_words.split(',') : []);
