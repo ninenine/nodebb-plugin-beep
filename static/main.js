@@ -81,7 +81,11 @@
             if (data.url.match(/^category/) || data.url.match(/^unread/) || data.url.match(/^recent/) || data.url.match(/^popular/) || data.url.match(/^topic/) || data.url.match(/^user/)) {
                 censorTopics();
             }
-            if (data.url.match(/^topic/)) $(window).on('action:infinitescroll.loadmore', censorTopics);
+            if (data.url.match(/^topic/)) {
+                $(window).on('action:infinitescroll.loadmore', censorTopics);
+            } else {
+                $(window).off('action:infinitescroll.loadmore', censorTopics);
+            }
             if (data.url.match(/^chats/)) censorChatTeaser();
         });
         $(window).on('action:categories.loaded', censorTopics);
