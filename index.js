@@ -31,6 +31,19 @@
             Beep.loadList();
             callback();
         },
+        appendConfig: function(config, callback) {
+            meta.settings.getOne('beep', 'censorWholeWord', function(err, censorWholeWord) {
+                if (err) {
+                    return callback(null, config);
+                }
+
+                config.beep = {
+                    censorWholeWord: censorWholeWord
+                }
+
+                callback(err, config);
+            });
+        },
         loadList: function() {
             // Load Banned Words from config
             meta.settings.get('beep', function(err, hash) {
