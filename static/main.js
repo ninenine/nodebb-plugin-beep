@@ -81,7 +81,11 @@
             if (data.url.match(/^category/) || data.url.match(/^unread/) || data.url.match(/^recent/) || data.url.match(/^popular/) || data.url.match(/^topic/) || data.url.match(/^user/)) {
                 censorTopics();
             }
-            if (data.url.match(/^topic/)) $(window).on('scroll', censorTopics);
+            if (data.url.match(/^topic/)) {
+                $(window).on('scroll', censorTopics);
+            } else {
+                $(window).off('scroll', censorTopics);
+            }
             if (data.url.match(/^chats/)) censorChatTeaser();
         });
         $(window).on('action:categories.loaded', censorTopics);
