@@ -82,7 +82,7 @@
         },
         parseSignature: function(data, callback) {
             if (!data || !data.userData || !data.userData.signature) {
-                return callback(null, content);
+                return callback(null, data);
             }
 
             data.userData.signature = Beep.parseContent(data.userData.signature);
