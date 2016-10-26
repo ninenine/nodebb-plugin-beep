@@ -13,6 +13,7 @@
 		{ "hook": "filter:parse.signature", "method": "parseSignature" },
 		{ "hook": "action:settings.set", "method": "onListChange" },
 		{ "hook": "filter:admin.header.build", "method": "admin.menu" },
+		{ "hook": "filter:topic.get", "method": "parseTopicData" },
 		{ "hook": "filter:topic.post", "method": "checkForIllegalWords" },
 		{ "hook": "filter:topic.reply", "method": "checkForIllegalWords" },
 		{ "hook": "filter:config.get", "method": "appendConfig" }
