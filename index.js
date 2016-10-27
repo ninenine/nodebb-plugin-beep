@@ -1,10 +1,11 @@
 (function() {
     'use strict';
-    var winston = module.parent.require('winston'),
-        _ = require('underscore'),
-        fs = require('fs'),
-        path = require('path'),
-        meta = module.parent.require('./meta');
+    var winston = module.parent.require('winston');
+    var _ = require('underscore');
+    var fs = require('fs');
+    var path = require('path');
+    var meta = module.parent.require('./meta');
+    var utils = require.main.require('./public/src/utils');
 
     _.str = require('underscore.string');
     _.mixin(_.str.exports()); // Mix in non-conflict functions to Underscore namespace
@@ -92,7 +93,7 @@
 
             var badwords = (Beep.banned_words ? Beep.banned_words.split(',') : []);
             badwords = _.map(badwords, function(word) {
-                return _.trim(word);
+                return utils.escapeRegexChars(_.trim(word));
             });
 
             var re = new RegExp('\\b(' + badwords.join('|') + ')\\b', 'ig');
