@@ -103,8 +103,6 @@
     });
 
     function censorTopics() {
-        console.log("Censorsing... ");
-        console.log(JSON.stringify(config.beep));
         if (censorTopicsLock || !badwords.length) {
             return;
         } else {
@@ -113,10 +111,10 @@
 
         var workingEl;
         var censor = function(match) {
-            if (config.beep.censorWholeWord == "off") {
-                return match[0] + Array(match.length-1).join('*') + match[match.length-1];
-            } else if (config.beep.censorWholeWord == "on") {
+            if (config.beep.censorWholeWord == "on") {
                 return '[censored]';
+            }else{
+                return match[0] + Array(match.length-1).join('*') + match[match.length-1];
             }
         };
 
