@@ -111,10 +111,10 @@
 
         var workingEl;
         var censor = function(match) {
-            if (!config.beep.censorWholeWord) {
-                return match[0] + Array(match.length-1).join('*') + match[match.length-1];
-            } else {
+            if (config.beep.censorWholeWord == "on") {
                 return '[censored]';
+            }else{
+                return match[0] + Array(match.length-1).join('*') + match[match.length-1];
             }
         };
 
@@ -164,7 +164,7 @@
             var re = new RegExp(badwords[w], 'ig');
             var hidestring = '';
             for (var i = 0; i < badwords[w].length - 2; i++) {
-                hidestring += '*';
+                hidestring += '\\*';
             }
             var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
             // Last Chat teaser

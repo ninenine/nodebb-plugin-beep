@@ -37,11 +37,9 @@
                 if (err) {
                     return callback(null, config);
                 }
-
                 config.beep = {
                     censorWholeWord: censorWholeWord === 'on'
                 }
-
                 callback(err, config);
             });
         },
@@ -69,7 +67,6 @@
             if (!data || !data.postData || !data.postData.content) {
                 return callback(null, data);
             }
-
             data.postData.content = Beep.parseContent(data.postData.content);
             callback(null, data);
         },
@@ -77,7 +74,6 @@
             if (!content) {
                 return callback(null, content);
             }
-
             content = Beep.parseContent(content);
             callback(null, content);
         },
@@ -105,7 +101,7 @@
 
             var censor = function(match) {
                 if (!Beep.censorWholeWord) {
-                    return match[0] + Array(match.length-1).join('*') + match[match.length-1];
+                    return match[0] + Array(match.length-1).join('* ') + match[match.length-1];
                 } else {
                     return '[censored]';
                 }
