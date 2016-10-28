@@ -1,10 +1,11 @@
 (function() {
     'use strict';
-    var winston = module.parent.require('winston'),
-        _ = require('underscore'),
-        fs = require('fs'),
-        path = require('path'),
-        meta = module.parent.require('./meta');
+    var winston = module.parent.require('winston');
+    var _ = require('underscore');
+    var fs = require('fs');
+    var path = require('path');
+    var meta = module.parent.require('./meta');
+    var utils = require.main.require('./public/src/utils');
 
     _.str = require('underscore.string');
     _.mixin(_.str.exports()); // Mix in non-conflict functions to Underscore namespace
@@ -80,38 +81,37 @@
             content = Beep.parseContent(content);
             callback(null, content);
         },
+        parseSignature: function(data, callback) {
+            if (!data || !data.userData || !data.userData.signature) {
+                return callback(null, data);
+            }
+
+            data.userData.signature = Beep.parseContent(data.userData.signature);
+            callback(null, data);
+        },
         parseContent: function(content) {
 
             var badwords = (Beep.banned_words ? Beep.banned_words.split(',') : []);
             badwords = _.map(badwords, function(word) {
-                return _.trim(word);
+                return utils.escapeRegexChars(_.trim(word));
             });
+
+            var re = new RegExp('\\b(' + badwords.join('|') + ')\\b', 'ig');
 
             var badurls = (Beep.banned_urls ? Beep.banned_urls.split(',') : []);
             badurls = _.map(badurls, function(word) {
                 return _.trim(word);
             });
 
-            for (var w in badwords) {
-                var re = new RegExp('\\b'+badwords[w]+'\\b', 'ig');
-                var hidestring = '';
-                var match;
-                for (var i = 0; i < badwords[w].length - 2; i++) {
-                    hidestring += '\\*';
-                }
-
+            var censor = function(match) {
                 if (!Beep.censorWholeWord) {
-                    var re2 = new RegExp(badwords[w].substring(1, badwords[w].length - 1), 'ig');
-                    if (re.test(content)) {
-                        match = content.match(re);
-                        var hashword = match[0].replace(re2, hidestring);
-                        content = content.replace(re, hashword);
-                    }
-                } else if (re.test(content)) {
-                    match = content.match(re);
-                    content = content.replace(re, '[censored]');
+                    return match[0] + Array(match.length-1).join('*') + match[match.length-1];
+                } else {
+                    return '[censored]';
                 }
-            }
+            };
+
+            content = content.replace(re, censor);
 
             for (var u in badurls) {
                 //var re = new RegExp('!?\\[[\\s\\S]*?\\]\\([\\s\\S]*?' + badurls[u] + '[\\s\\S]*?\\)', 'ig')
@@ -120,6 +120,10 @@
             }
 
             return content;
+        },
+        parseTopicData: function(data, callback) {
+            data.topic.title = Beep.parseContent(data.topic.title);
+            callback(null, data);
         },
         checkForIllegalWords: function(data, callback) {
             var postContent = data.content;
