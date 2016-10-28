@@ -37,11 +37,9 @@
                 if (err) {
                     return callback(null, config);
                 }
-
                 config.beep = {
                     censorWholeWord: censorWholeWord
                 }
-
                 callback(err, config);
             });
         },
@@ -105,7 +103,7 @@
 
             var censor = function(match) {
                 if (!Beep.censorWholeWord) {
-                    return match[0] + Array(match.length-1).join('*') + match[match.length-1];
+                    return match[0] + Array(match.length-1).join('\\*') + match[match.length-1];
                 } else {
                     return '[censored]';
                 }
