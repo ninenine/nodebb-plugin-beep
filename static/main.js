@@ -111,7 +111,7 @@
 
         var workingEl;
         var censor = function(match) {
-            if (config.beep.censorWholeWord == "on") {
+            if (config.beep.censorWholeWord) {
                 return '[censored]';
             }else{
                 return match[0] + Array(match.length-1).join('*') + match[match.length-1];

@@ -38,7 +38,7 @@
                     return callback(null, config);
                 }
                 config.beep = {
-                    censorWholeWord: censorWholeWord
+                    censorWholeWord: censorWholeWord === 'on'
                 }
                 callback(err, config);
             });
