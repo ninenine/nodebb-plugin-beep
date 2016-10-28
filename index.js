@@ -39,7 +39,7 @@
                 }
 
                 config.beep = {
-                    censorWholeWord: censorWholeWord
+                    censorWholeWord: censorWholeWord === 'on'
                 }
 
                 callback(err, config);
