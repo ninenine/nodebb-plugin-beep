@@ -67,15 +67,16 @@
             if (!data || !data.postData || !data.postData.content) {
                 return callback(null, data);
             }
-
+            console.log("Parsing post Data");
             data.postData.content = Beep.parseContent(data.postData.content);
+            console.log(JSON.stringify(data));
             callback(null, data);
         },
         parseRaw: function(content, callback) {
             if (!content) {
                 return callback(null, content);
             }
-
+            console.log("Parsing Raw");
             content = Beep.parseContent(content);
             callback(null, content);
         },
