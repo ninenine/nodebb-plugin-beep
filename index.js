@@ -123,12 +123,19 @@
         },
         checkForIllegalWords: function(data, callback) {
             var postContent = data.content;
+            var postTitle = data.title;
+
             var illegal_words = (Beep.illegal_words ? Beep.illegal_words.split(',') : []);
             illegal_words = _.map(illegal_words, function(word) {
                 return _.trim(word);
             });
 
             for (var w in illegal_words) {
+                
+                if (postTitle.toLowerCase().match(illegal_words[w])){
+                    return callback(new Error('You may not use the word "' + illegal_words[w] + '" in your title.'));
+                }
+
                 if (postContent.toLowerCase().match(illegal_words[w])) {
                     return callback(new Error('You may not use the word "' + illegal_words[w] + '" in your post.'));
                 }
