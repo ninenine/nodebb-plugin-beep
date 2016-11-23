@@ -131,8 +131,8 @@
             });
 
             for (var w in illegal_words) {
-                
-                if (postTitle.toLowerCase().match(illegal_words[w])){
+
+                if (postTitle && postTitle.toLowerCase().match(illegal_words[w])){
                     return callback(new Error('You may not use the word "' + illegal_words[w] + '" in your title.'));
                 }
 
