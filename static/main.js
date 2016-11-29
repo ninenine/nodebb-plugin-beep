@@ -113,12 +113,12 @@
         var censor = function(match) {
             if (config.beep.censorWholeWord) {
                 return '[censored]';
-            }else{
+            } else{
                 return match[0] + Array(match.length-1).join('*') + match[match.length-1];
             }
         };
 
-        var re = new RegExp('\\b(' + badwords.join('|') + ')\\b', 'ig');
+        var re = new RegExp('(' + badwords.join('|') + ')(?=$|\\s|<)', 'ig');
 
         //Change topic title on topic list and topic
         $('[component="topic/title"], [component="post"] .topic-title, [component="category/topic"] .topic-title, [component="topic/header"] [itemprop="url"], [component="post/header"] > *').each(function() {
