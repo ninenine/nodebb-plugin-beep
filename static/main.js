@@ -97,10 +97,43 @@
             //delay to display the topics
             setTimeout(censorTopics, 270);
         });
-          socket.on('event:post_edited', function() {
+        socket.on('event:post_edited', function() {
             setTimeout(censorTopics, 270);
         });
+        $(window).on('action:composer.loaded', censorComposer);
+        $(window).on('action:composer.addQuote', censorComposerContent);
     });
+
+    function censorComposer (ev, data) {
+        if (data.isMain) {
+            return;
+        }
+
+        var titleEl = $('[component="composer"] .title');
+        var re = new RegExp('(' + badwords.join('|') + ')(?=$|\\s|<)', 'ig');
+        var censor = function(match) {
+            if (config.beep.censorWholeWord) {
+                return '[censored]';
+            } else{
+                return match[0] + Array(match.length-1).join('*') + match[match.length-1];
+            }
+        };
+
+        titleEl.html(titleEl.html().replace(re, censor));
+    };
+
+    function censorComposerContent (ev, data) {
+        var re = new RegExp('(' + badwords.join('|') + ')(?=$|\\s|<)', 'ig');
+        var censor = function(match) {
+            if (config.beep.censorWholeWord) {
+                return '[censored]';
+            } else{
+                return match[0] + Array(match.length-1).join('*') + match[match.length-1];
+            }
+        };
+
+        data.text = data.text.replace(re, censor);
+    };
 
     function censorTopics() {
         if (censorTopicsLock || !badwords.length) {
@@ -113,12 +146,12 @@
         var censor = function(match) {
             if (config.beep.censorWholeWord) {
                 return '[censored]';
-            }else{
+            } else{
                 return match[0] + Array(match.length-1).join('*') + match[match.length-1];
             }
         };
 
-        var re = new RegExp('\\b(' + badwords.join('|') + ')\\b', 'ig');
+        var re = new RegExp('(' + badwords.join('|') + ')(?=$|\\s|<)', 'ig');
 
         //Change topic title on topic list and topic
         $('[component="topic/title"], [component="post"] .topic-title, [component="category/topic"] .topic-title, [component="topic/header"] [itemprop="url"], [component="post/header"] > *').each(function() {

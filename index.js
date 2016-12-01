@@ -92,7 +92,7 @@
                 return utils.escapeRegexChars(_.trim(word));
             });
 
-            var re = new RegExp('\\b(' + badwords.join('|') + ')\\b', 'ig');
+            var re = new RegExp('(' + badwords.join('|') + ')(?=$|\\s|<)', 'ig');
 
             var badurls = (Beep.banned_urls ? Beep.banned_urls.split(',') : []);
             badurls = _.map(badurls, function(word) {
@@ -131,8 +131,8 @@
             });
 
             for (var w in illegal_words) {
-                
-                if (postTitle.toLowerCase().match(illegal_words[w])){
+
+                if (postTitle && postTitle.toLowerCase().match(illegal_words[w])){
                     return callback(new Error('You may not use the word "' + illegal_words[w] + '" in your title.'));
                 }
 
