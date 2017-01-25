@@ -86,13 +86,18 @@
             callback(null, data);
         },
         parseContent: function(content) {
-
             var badwords = (Beep.banned_words ? Beep.banned_words.split(',') : []);
-            badwords = _.map(badwords, function(word) {
+            var isLatin = /\w+$/;
+            var unicodeBadwords = badwords.filter(function (word) {
+                return !isLatin.test(word);
+            });
+            badwords = _.map(badwords.filter(function (word) {
+                return isLatin.test(word);
+            }), function(word) {
                 return utils.escapeRegexChars(_.trim(word));
             });
 
-            var re = new RegExp('(' + badwords.join('|') + ')(?=$|\\s|<)', 'ig');
+            var re = new RegExp('\\b(' + badwords.join('|') + ')\\b', 'ig');
 
             var badurls = (Beep.banned_urls ? Beep.banned_urls.split(',') : []);
             badurls = _.map(badurls, function(word) {
@@ -114,6 +119,11 @@
                 var re = new RegExp(badurls[u], 'ig'); //just werks :)
                 content = content.replace(re, '[link removed]');
             }
+
+            unicodeBadwords.forEach(function (word) {
+                var re = new RegExp(word, 'ig');
+                content = content.replace(re, '[censored]');
+            });
 
             return content;
         },
