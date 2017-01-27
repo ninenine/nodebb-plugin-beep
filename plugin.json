@@ -21,6 +21,7 @@
 		{ "hook": "filter:topic.reply", "method": "checkForIllegalWords" },
 
 		{ "hook": "filter:category.get", "method": "category.get" },
+		{ "hook": "filter:category.topics.get", "method": "category.topics.get" },
 
 		{ "hook": "filter:config.get", "method": "appendConfig" },
 

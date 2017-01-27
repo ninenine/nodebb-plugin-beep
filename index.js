@@ -181,6 +181,19 @@
                 });
 
                 callback(null, data);
+            },
+
+            topics: {
+                get: function (data, callback) {
+                    console.log(data);
+                    data.topics.forEach(function (topic) {
+                        topic.title = Beep.parseContent(topic.title);
+                        topic.slug = Beep.parseContent(topic.slug);
+                        topic.titleRaw = Beep.parseContent(topic.titleRaw);
+                    });
+
+                    callback(null, data);
+                }
             }
         },
 
