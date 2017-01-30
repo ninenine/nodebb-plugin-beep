@@ -7,18 +7,24 @@
 	"templates":"public/templates",
 	"hooks": [
 		{ "hook": "static:app.load", "method": "init" },
+		{ "hook": "action:settings.set", "method": "onListChange" },
+		{ "hook": "filter:admin.header.build", "method": "admin.menu" },
+
 		{ "hook": "filter:parse.post", "method": "parse", "priority": 1 },
 		{ "hook": "filter:parse.raw", "method": "parseRaw", "priority": 1 },
 		{ "hook": "filter:parse.aboutme", "method": "parseRaw" },
 		{ "hook": "filter:parse.signature", "method": "parseSignature" },
-		{ "hook": "action:settings.set", "method": "onListChange" },
-		{ "hook": "filter:admin.header.build", "method": "admin.menu" },
+		{ "hook": "filter:post.getFields", "method": "post.getFields"},
+
 		{ "hook": "filter:topic.get", "method": "parseTopicData" },
 		{ "hook": "filter:topic.post", "method": "checkForIllegalWords" },
 		{ "hook": "filter:topic.reply", "method": "checkForIllegalWords" },
-		{ "hook": "filter:config.get", "method": "appendConfig" }
-	],
-	"scripts": [
-		"static/main.js"
+
+		{ "hook": "filter:category.get", "method": "category.get" },
+		{ "hook": "filter:category.topics.get", "method": "category.topics.get" },
+
+		{ "hook": "filter:config.get", "method": "appendConfig" },
+
+		{ "hook": "filter:messaging.getTeaser", "method": "messaging.getTeaser" }
 	]
 }

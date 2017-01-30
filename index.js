@@ -86,6 +86,10 @@
             callback(null, data);
         },
         parseContent: function(content) {
+            if (!content) {
+                return content;
+            }
+
             var badwords = (Beep.banned_words ? Beep.banned_words.split(',') : []);
             var isLatin = /\w+$/;
             var unicodeBadwords = badwords.filter(function (word) {
@@ -129,6 +133,9 @@
         },
         parseTopicData: function(data, callback) {
             data.topic.title = Beep.parseContent(data.topic.title);
+            data.topic.titleRaw = Beep.parseContent(data.topic.titleRaw);
+            data.topic.slug = Beep.parseContent(data.topic.slug);
+
             callback(null, data);
         },
         checkForIllegalWords: function(data, callback) {
@@ -162,7 +169,52 @@
                 });
                 callback(null, custom_header);
             }
+        },
+
+        category: {
+            get: function (data, callback) {
+                var topics = data.category.topics;
+
+                topics.forEach(function (topic) {
+                    topic.title = Beep.parseContent(topic.title);
+                    topic.slug = Beep.parseContent(topic.slug);
+                });
+
+                callback(null, data);
+            },
+
+            topics: {
+                get: function (data, callback) {
+                    data.topics.forEach(function (topic) {
+                        topic.title = Beep.parseContent(topic.title);
+                        topic.slug = Beep.parseContent(topic.slug);
+                        topic.titleRaw = Beep.parseContent(topic.titleRaw);
+                    });
+
+                    callback(null, data);
+                }
+            }
+        },
+
+        post: {
+            getFields: function (data, callback) {
+                if (data.fields.indexOf('content') !== -1) {
+                    data.posts.forEach(function (post) {
+                        post.content = Beep.parseContent(post.content);
+                    });
+                }
+
+                callback(null, data);
+            }
+        },
+
+        messaging: {
+            getTeaser: function (data, callback) {
+                data.teaser.content = Beep.parseContent(data.teaser.content);
+                callback(null, data);
+            }
         }
     };
+
     module.exports = Beep;
 })();
