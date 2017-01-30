@@ -5,7 +5,7 @@ Allows admins to create a list of banned words and urls that are censored when u
 
 ## Installation
 
-npm install nodebb-plugin-beep
+```npm install nodebb-plugin-beep```
 
 ## Screenshots
 ![ScreenShot](https://raw.github.com/ninenine/nodebb-plugin-beep/master/screenshot.png)
