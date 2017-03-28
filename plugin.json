@@ -16,12 +16,12 @@
 		{ "hook": "filter:parse.signature", "method": "parseSignature" },
 		{ "hook": "filter:post.getFields", "method": "post.getFields"},
 
-		{ "hook": "filter:topic.get", "method": "parseTopicData" },
-		{ "hook": "filter:topic.post", "method": "checkForIllegalWords" },
-		{ "hook": "filter:topic.reply", "method": "checkForIllegalWords" },
+		{ "hook": "filter:topic.create", "method": "parseTopic" },
+		{ "hook": "filter:topic.edit", "method": "parseTopic" },
 
-		{ "hook": "filter:category.get", "method": "category.get" },
-		{ "hook": "filter:category.topics.get", "method": "category.topics.get" },
+		{ "hook": "filter:topic.create", "method": "checkForIllegalWords" },
+		{ "hook": "filter:topic.edit", "method": "checkForIllegalWords" },
+		{ "hook": "filter:topic.reply", "method": "checkForIllegalWords" },
 
 		{ "hook": "filter:config.get", "method": "appendConfig" },
 
