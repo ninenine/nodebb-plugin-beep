@@ -24,7 +24,7 @@ var Beep = {
 
 	parseContent: function (content) {
 		var nil = '^(?!x)x';
-		return parseContent(content, Beep.banned_words || nil, Beep.banned_urls || nil, Beep.censorWholeWord);
+		return parseContent(content, Beep.banned_words || nil, Beep.banned_urls || nil, Beep.censorWholeWord || nil);
 	},
 	toRegExp: toRegExp,
 	loadList: function (callback) {
@@ -34,27 +34,21 @@ var Beep = {
 				return callback(err);
 			}
 
-			Beep.illegal_words = Beep.toRegExp(hash.illegal, true);
+			Beep.illegal_words = new RegExp('\\b(?:' + Beep.toRegExp(hash.illegal) + ')\\b', 'ig');
 
 			if (hash.id && hash.id.length) {
 				var words = hash.id.split(',').filter(function (word) {
 					return !Beep.illegal_words.test(word);
 				});
-				Beep.banned_words = Beep.toRegExp(words, true);
+				Beep.banned_words = new RegExp('\\b(?:' + Beep.toRegExp(words) + ')\\b', 'ig');
 				Beep.banned_words_raw = hash.id;
 			} else {
-				Beep.banned_words = Beep.toRegExp(defaultBanList, true);
+				Beep.banned_words = new RegExp('\\b(?:' + Beep.toRegExp(defaultBanList) + ')\\b', 'ig');
 				Beep.banned_words_raw = defaultBanList.join(',');
 				winston.info('Default list of Banned Words is enabled. Please go to administration panel to change the list.');
 			}
-
-			Beep.banned_urls = Beep.toRegExp(hash.urls);
-
+			Beep.banned_urls = new RegExp(Beep.toRegExp(hash.urls), 'ig');
 			Beep.censorWholeWord = hash.censorWholeWord === 'on';
-			if (meta.config) {
-				meta.config.beep = meta.config.beep || {};
-				meta.config.beep.censorWholeWord = Beep.censorWholeWord;
-			}
 
 			callback();
 		});
@@ -145,6 +139,26 @@ var Beep = {
 				'name': 'Censor Curse Words'
 			});
 			callback(null, custom_header);
+		}
+	},
+	category: {
+		get: function (data, callback) {
+			var topics = data.category.topics;
+			topics.forEach(function (topic) {
+				topic.title = Beep.parseContent(topic.title);
+				topic.slug = Beep.parseContent(topic.slug);
+			});
+			callback(null, data);
+		},
+		topics: {
+			get: function (data, callback) {
+				data.topics.forEach(function (topic) {
+					topic.title = Beep.parseContent(topic.title);
+					topic.slug = Beep.parseContent(topic.slug);
+					topic.titleRaw = Beep.parseContent(topic.titleRaw);
+				});
+				callback(null, data);
+			}
 		}
 	},
 	post: {
