@@ -5,8 +5,8 @@ var assert = require('assert');
 var toRegExp = require('../lib/toRegExp');
 var parseContent = require('../lib/parseContent');
 
-var bannedWords = new RegExp('\\b(?:' + toRegExp(['poop', 'shit']) + ')\\b', 'ig');
-var bannedUrls = new RegExp(toRegExp(['http://example.com', 'http://foo.bar']), 'ig');
+var bannedWords = toRegExp(['poop', 'shit'], true);
+var bannedUrls = toRegExp(['http://example.com', 'http://foo.bar']);
 var nil = '^(?!x)x';
 
 assert.strictEqual(parseContent(
@@ -29,3 +29,13 @@ assert.strictEqual(parseContent(
   bannedUrls,
   false
 ), 'My favorite website is [link removed]. I also love [link removed].');
+
+var unicodeBannedWords = toRegExp(['今', '野'], true);
+assert.strictEqual(parseContent(
+  '載点代示早面通今就焼初哲野質',
+  unicodeBannedWords,
+  nil,
+  false
+), '載点代示早面通[censored]就焼初哲[censored]質');
+
+console.log('parseContent passed');
