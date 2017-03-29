@@ -22,9 +22,9 @@ var Beep = {
 	banned_urls: null,
 	illegal_words: null,
 
-	parseContent: function (content) {
+	parseContent: function (content, is_topic=false) {
 		var nil = '^(?!x)x';
-		return parseContent(content, Beep.banned_words || nil, Beep.banned_urls || nil, Beep.censorWholeWord);
+		return parseContent(content, Beep.banned_words || nil, Beep.banned_urls || nil, Beep.censorWholeWord, is_topic);
 	},
 	toRegExp: toRegExp,
 	loadList: function (callback) {
@@ -131,9 +131,10 @@ var Beep = {
 		callback(null, data);
 	},
 	parseTopic: function (data, callback) {
-		data.topic.title = Beep.parseContent(data.topic.title);
-		data.topic.slug = Beep.parseContent(data.topic.slug);
-		data.topic.titleRaw = Beep.parseContent(data.topic.titleRaw);
+		var is_topic=true
+		data.topic.title = Beep.parseContent(data.topic.title, is_topic);
+		data.topic.slug = Beep.parseContent(data.topic.slug, is_topic);
+		data.topic.titleRaw = Beep.parseContent(data.topic.titleRaw, is_topic);
 
 		callback(null, data);
 	},
