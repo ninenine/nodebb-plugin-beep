@@ -18,6 +18,7 @@
 
 		{ "hook": "filter:topic.create", "method": "parseTopic" },
 		{ "hook": "filter:topic.edit", "method": "parseTopic" },
+		{ "hook": "filter:tags.filter", "method": "filterTags" },
 
 		{ "hook": "filter:topic.create", "method": "checkForIllegalWords" },
 		{ "hook": "filter:topic.edit", "method": "checkForIllegalWords" },

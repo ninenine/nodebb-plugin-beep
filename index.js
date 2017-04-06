@@ -22,9 +22,9 @@ var Beep = {
 	banned_urls: null,
 	illegal_words: null,
 
-	parseContent: function (content, is_topic=false) {
+	parseContent: function (content, symbol) {
 		var nil = '^(?!x)x';
-		return parseContent(content, Beep.banned_words || nil, Beep.banned_urls || nil, Beep.censorWholeWord, is_topic);
+		return parseContent(content, Beep.banned_words || nil, Beep.banned_urls || nil, Beep.censorWholeWord, symbol || '*');
 	},
 	toRegExp: toRegExp,
 	loadList: function (callback) {
@@ -105,7 +105,7 @@ var Beep = {
 		callback(null, data);
 	},
 	onListChange: function (hash) {
-		if (hash === 'settings:beep') {
+		if (hash && hash.plugin === 'beep') {
 			Beep.loadList(function () {});
 		}
 	},
@@ -131,10 +131,28 @@ var Beep = {
 		callback(null, data);
 	},
 	parseTopic: function (data, callback) {
-		var is_topic=true
-		data.topic.title = Beep.parseContent(data.topic.title, is_topic);
-		data.topic.slug = Beep.parseContent(data.topic.slug, is_topic);
-		data.topic.titleRaw = Beep.parseContent(data.topic.titleRaw, is_topic);
+  	// from http://htmlarrows.com/symbols/
+		var starHTML = '&#8270;';
+		data.topic.title = Beep.parseContent(data.topic.title, starHTML);
+		data.topic.slug = Beep.parseContent(data.topic.slug, starHTML);
+		data.topic.titleRaw = Beep.parseContent(data.topic.titleRaw, starHTML);
+
+		callback(null, data);
+	},
+	filterTags: function (data, callback) {
+		var match;
+		data.tags.some(function (tag) {
+			match = tag && tag.match(Beep.illegal_words);
+			return !!match;
+		});
+
+		if (match) {
+			return callback(new Error('You may not use the word "' + match[0] + '" in your tags.'));
+		}
+
+		data.tags = data.tags.map(function (tag) {
+			return Beep.parseContent(tag, '+');
+		});
 
 		callback(null, data);
 	},
