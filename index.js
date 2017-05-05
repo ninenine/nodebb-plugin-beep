@@ -114,6 +114,9 @@ var Beep = {
 			return callback(null, data);
 		}
 		data.postData.content = Beep.parseContent(data.postData.content);
+		if (data.postData.topic) {
+			Beep.parseTopic(data.postData.topic)
+		}
 		callback(null, data);
 	},
 	parseRaw: function (content, callback) {
@@ -130,14 +133,30 @@ var Beep = {
 		data.userData.signature = Beep.parseContent(data.userData.signature);
 		callback(null, data);
 	},
-	parseTopic: function (data, callback) {
-  	// from http://htmlarrows.com/symbols/
-		var starHTML = '&#8270;';
-		data.topic.title = Beep.parseContent(data.topic.title, starHTML);
-		data.topic.slug = Beep.parseContent(data.topic.slug, starHTML);
-		data.topic.titleRaw = Beep.parseContent(data.topic.titleRaw, starHTML);
-
+	onTopicsGet: function (data, callback) {
+		data.topics.forEach(Beep.parseTopic);
 		callback(null, data);
+	},
+	onTopicGet: function (data, callback) {
+		Beep.parseTopic(data.topic);
+		callback(null, data);
+	},
+	onGetPostSummaries: function (data, callback) {
+		data.posts.forEach(function (post) {
+			if (post) {
+				Beep.parseTopic(post.topic);
+			}
+		});
+		callback(null, data);
+	},
+	parseTopic: function (topic) {
+		var starHTML = '&#8270;';
+		if (topic) {
+			topic.title = Beep.parseContent(topic.title, starHTML);
+			topic.slug = Beep.parseContent(topic.slug, starHTML);
+			topic.titleRaw = Beep.parseContent(topic.titleRaw, starHTML);
+		}
+		return topic;
 	},
 	filterTags: function (data, callback) {
 		var match;
