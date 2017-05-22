@@ -3,6 +3,8 @@
 var winston = require.main.require('winston');
 var meta = require.main.require('./src/meta');
 
+var translator = module.parent.require('../public/src/modules/translator');
+
 var toRegExp = require('./lib/toRegExp');
 var parseContent = require('./lib/parseContent');
 
@@ -95,11 +97,15 @@ var Beep = {
 
 		var titleMatch = postTitle && postTitle.match(Beep.illegal_words);
 		if (titleMatch) {
-			return callback(new Error('You may not use the word "' + titleMatch[0] + '" in your title.'));
+			return translator.translate('[[beep:titleMatch.error, ' + titleMatch[0] + ']]', function(translated) {
+				callback(new Error(translated));
+			});
 		}
 		var contentMatch = postContent && postContent.match(Beep.illegal_words);
 		if (contentMatch) {
-			return callback(new Error('You may not use the word "' + contentMatch[0] + '" in your post.'));
+			return translator.translate('[[beep:contentMatch.error, ' + contentMatch[0] + ']]', function(translated) {
+				callback(new Error(translated));
+			});
 		}
 
 		callback(null, data);
@@ -147,7 +153,9 @@ var Beep = {
 		});
 
 		if (match) {
-			return callback(new Error('You may not use the word "' + match[0] + '" in your tags.'));
+			return translator.translate('[[beep:tagMatch.error, ' + match[0] + ']]', function(translated) {
+				callback(new Error(translated));
+			});
 		}
 
 		data.tags = data.tags.map(function (tag) {
