@@ -120,9 +120,6 @@ var Beep = {
 			return callback(null, data);
 		}
 		data.postData.content = Beep.parseContent(data.postData.content);
-		if (data.postData.topic) {
-			Beep.parseTopic(data.postData.topic)
-		}
 		callback(null, data);
 	},
 	parseRaw: function (content, callback) {
