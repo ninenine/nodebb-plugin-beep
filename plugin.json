@@ -16,10 +16,8 @@
 		{ "hook": "filter:parse.signature", "method": "parseSignature" },
 		{ "hook": "filter:post.getFields", "method": "post.getFields"},
 
-		{ "hook": "filter:topics.get", "method": "onTopicsGet" },
-		{ "hook": "filter:topic.get", "method": "onTopicGet" },
-		{ "hook": "filter:post.getPostSummaryByPids", "method": "onGetPostSummaries" },
-
+		{ "hook": "filter:topic.create", "method": "parseTopic" },
+		{ "hook": "filter:topic.edit", "method": "parseTopic" },
 		{ "hook": "filter:tags.filter", "method": "filterTags" },
 
 		{ "hook": "filter:topic.create", "method": "checkForIllegalWords" },
