@@ -29,5 +29,7 @@
 		{ "hook": "filter:config.get", "method": "appendConfig" },
 
 		{ "hook": "filter:messaging.getTeaser", "method": "messaging.getTeaser" }
-	]
+	],
+	"languages": "languages",
+	"defaultLang": "en_GB"
 }

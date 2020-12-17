@@ -3,6 +3,8 @@
 var winston = require.main.require('winston');
 var meta = require.main.require('./src/meta');
 
+var translator = require.main.require('./src/translator');
+
 var toRegExp = require('./lib/toRegExp');
 var parseContent = require('./lib/parseContent');
 
@@ -24,7 +26,7 @@ var Beep = {
 
 	parseContent: function (content, symbol) {
 		var nil = '^(?!x)x';
-		return parseContent(content, Beep.banned_words || nil, Beep.banned_urls || nil, Beep.censorWholeWord, symbol || '*');
+		return parseContent(content, Beep.banned_words || nil, Beep.banned_urls || nil, Beep.censorWholeWord, symbol || '&ast;');
 	},
 	toRegExp: toRegExp,
 	loadList: function (callback) {
@@ -84,7 +86,7 @@ var Beep = {
 				return callback(null, config);
 			}
 			config.beep = {
-				censorWholeWord: censorWholeWord === 'on'
+				censorWholeWord: censorWholeWord === 'on',
 			};
 			callback(err, config);
 		});
@@ -95,11 +97,15 @@ var Beep = {
 
 		var titleMatch = postTitle && postTitle.match(Beep.illegal_words);
 		if (titleMatch) {
-			return callback(new Error('You may not use the word "' + titleMatch[0] + '" in your title.'));
+			return translator.translate('[[beep:titleMatch.error, ' + titleMatch[0] + ']]', function (translated) {
+				callback(new Error(translated));
+			});
 		}
 		var contentMatch = postContent && postContent.match(Beep.illegal_words);
 		if (contentMatch) {
-			return callback(new Error('You may not use the word "' + contentMatch[0] + '" in your post.'));
+			return translator.translate('[[beep:contentMatch.error, ' + contentMatch[0] + ']]', function (translated) {
+				callback(new Error(translated));
+			});
 		}
 
 		callback(null, data);
@@ -133,20 +139,13 @@ var Beep = {
 		data.userData.signature = Beep.parseContent(data.userData.signature);
 		callback(null, data);
 	},
-	onTopicsGet: function (data, callback) {
-		data.topics.forEach(Beep.parseTopic);
-		callback(null, data);
-	},
-	onTopicGet: function (data, callback) {
-		Beep.parseTopic(data.topic);
-		callback(null, data);
-	},
-	onGetPostSummaries: function (data, callback) {
-		data.posts.forEach(function (post) {
-			if (post) {
-				Beep.parseTopic(post.topic);
-			}
-		});
+	parseTopic: function (data, callback) {
+		// from http://htmlarrows.com/symbols/
+		var starHTML = '*';
+		data.topic.title = Beep.parseContent(data.topic.title, starHTML);
+		data.topic.slug = Beep.parseContent(data.topic.slug, starHTML);
+		data.topic.titleRaw = Beep.parseContent(data.topic.titleRaw, starHTML);
+
 		callback(null, data);
 	},
 	parseTopic: function (topic) {
@@ -166,7 +165,9 @@ var Beep = {
 		});
 
 		if (match) {
-			return callback(new Error('You may not use the word "' + match[0] + '" in your tags.'));
+			return translator.translate('[[beep:tagMatch.error, ' + match[0] + ']]', function (translated) {
+				callback(new Error(translated));
+			});
 		}
 
 		data.tags = data.tags.map(function (tag) {
@@ -178,12 +179,12 @@ var Beep = {
 	admin: {
 		menu: function (custom_header, callback) {
 			custom_header.plugins.push({
-				'route': '/plugins/beep',
-				'icon': 'fa-microphone-slash',
-				'name': 'Censor Curse Words'
+				route: '/plugins/beep',
+				icon: 'fa-microphone-slash',
+				name: 'Censor Curse Words',
 			});
 			callback(null, custom_header);
-		}
+		},
 	},
 	post: {
 		getFields: function (data, callback) {
@@ -193,14 +194,14 @@ var Beep = {
 				});
 			}
 			callback(null, data);
-		}
+		},
 	},
 	messaging: {
 		getTeaser: function (data, callback) {
 			data.teaser.content = Beep.parseContent(data.teaser.content);
 			callback(null, data);
-		}
-	}
+		},
+	},
 };
 
 module.exports = Beep;
