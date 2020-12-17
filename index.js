@@ -148,15 +148,6 @@ var Beep = {
 
 		callback(null, data);
 	},
-	parseTopic: function (topic) {
-		var starHTML = '&#8270;';
-		if (topic) {
-			topic.title = Beep.parseContent(topic.title, starHTML);
-			topic.slug = Beep.parseContent(topic.slug, starHTML);
-			topic.titleRaw = Beep.parseContent(topic.titleRaw, starHTML);
-		}
-		return topic;
-	},
 	filterTags: function (data, callback) {
 		var match;
 		data.tags.some(function (tag) {
