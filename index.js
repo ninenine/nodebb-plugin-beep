@@ -97,15 +97,17 @@ var Beep = {
 
 		var titleMatch = postTitle && postTitle.match(Beep.illegal_words);
 		if (titleMatch) {
-			return translator.translate('[[beep:titleMatch.error, ' + titleMatch[0] + ']]', function (translated) {
+			translator.translate('[[beep:titleMatch.error, ' + titleMatch[0] + ']]', function (translated) {
 				callback(new Error(translated));
 			});
+			return;
 		}
 		var contentMatch = postContent && postContent.match(Beep.illegal_words);
 		if (contentMatch) {
-			return translator.translate('[[beep:contentMatch.error, ' + contentMatch[0] + ']]', function (translated) {
+			translator.translate('[[beep:contentMatch.error, ' + contentMatch[0] + ']]', function (translated) {
 				callback(new Error(translated));
 			});
+			return;
 		}
 
 		callback(null, data);
@@ -153,9 +155,10 @@ var Beep = {
 		});
 
 		if (match) {
-			return translator.translate('[[beep:tagMatch.error, ' + match[0] + ']]', function (translated) {
+			translator.translate('[[beep:tagMatch.error, ' + match[0] + ']]', function (translated) {
 				callback(new Error(translated));
 			});
+			return;
 		}
 
 		data.tags = data.tags.map(function (tag) {
