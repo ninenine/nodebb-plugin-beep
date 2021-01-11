@@ -46,7 +46,7 @@ var Beep = {
 				Beep.banned_words_raw = hash.id;
 			} else {
 				Beep.banned_words = Beep.toRegExp(defaultBanList, true);
-				Beep.banned_words_raw = defaultBanList.join(',');
+				Beep.banned_words_raw = defaultBanList.join(', ');
 				winston.info('Default list of Banned Words is enabled. Please go to administration panel to change the list.');
 			}
 
