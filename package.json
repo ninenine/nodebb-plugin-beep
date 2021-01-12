@@ -1,7 +1,8 @@
 {
   "name": "nodebb-plugin-beep",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "NodeBB Censor Curse Words Plugin",
+  "deprecated": false,
   "main": "index.js",
   "scripts": {
     "test": "node tests"
@@ -28,9 +29,9 @@
   },
   "readme": "",
   "readmeFilename": "README.md",
-  "_id": "nodebb-plugin-beep@0.0.1",
-  "_from": "nodebb-plugin-beep@~0.0.1",
+  "_id": "nodebb-plugin-beep@0.4.4",
+  "_from": "nodebb-plugin-beep@0.4.4",
   "nbbpm": {
-    "compatibility": "^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^1.0.0 || ^1.1.0"
+    "compatibility": "^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^1.0.0 || ^1.1.0 || ^1.13.0 || ^1.16.1 "
   }
 }
