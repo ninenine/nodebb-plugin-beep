@@ -7,7 +7,7 @@
 					<fieldset>
 						<div class="form-group">
 							<label for="illegal"><i>comma-separated</i> list of Illegal Words (post will not be allowed)</label>
-							<input type="text" class="form-control" id="illegal" name="illegal" placeholder="eg. anal,anus,arse,ass,ballsack" value="" />
+							<textarea class="form-control" id="illegal" name="illegal" placeholder="eg. anal, anus, arse, ass, ballsack"></textarea>
 						</div>
 					</fieldset>
 				</div>
@@ -18,7 +18,7 @@
 					<fieldset>
 						<div class="form-group">
 							<label for="id"><i>comma-separated</i> list of Banned Words (post will be censored with asterisks)</label>
-							<input type="text" class="form-control" id="id" name="id" placeholder="eg. anal,anus,arse,ass,ballsack" value="anal,anus,arse,ass,ballsack,balls,bastard,bitch,biatch,bloody,blowjob,blow job,bollock,bollok,boner,boob,bugger,bum,butt,buttplug,clitoris,cock,coon,crap,cunt,damn,dick,dildo,dyke,fag,feck,fellate,fellatio,felching,fuck,f u c k,fudgepacker,fudge packer,flange,homo,jerk,jizz,knobend,knob end,labia,muff,nigger,nigga,penis,piss,poop,prick,pube,pussy,queer,sex,shit,s hit,sh1t,slut,smegma,spunk,tit,tosser,turd,twat,vagina,wank,whore" />
+							<textarea class="form-control" id="id" name="id" placeholder="eg. anal, anus, arse, ass, ballsack">anal, anus, arse, ass, ballsack, balls, bastard, bitch, biatch, bloody, blowjob, blow job, bollock, bollok, boner, boob, bugger, bum, butt, buttplug, clitoris, cock, coon, crap, cunt, damn, dick, dildo, dyke, fag, feck, fellate, fellatio, felching, fuck, f u c k, fudgepacker, fudge packer, flange, homo, jerk, jizz, knobend, knob end, labia, muff, nigger, nigga, penis, piss, poop, prick, pube, pussy, queer, sex, shit, s hit, sh1t, slut, smegma, spunk, tit, tosser, turd, twat, vagina, wank, whore</textarea>
 						</div>
 					</fieldset>
 				</div>
@@ -31,7 +31,7 @@
 
 						<div class="form-group">
 							<label for="urls"><i>comma-separated</i> list of Banned URLs (link will be shown as [link removed])</label>
-							<input type="text" class="form-control" id="urls" name="urls" placeholder="eg. google.com,yahoo.com" value="" />
+							<textarea class="form-control" id="urls" name="urls" placeholder="eg. google.com, yahoo.com"></textarea>
 						</div>
 					
 					</fieldset>
