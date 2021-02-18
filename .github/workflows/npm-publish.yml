@@ -4,8 +4,15 @@
 name: Node.js Package
 
 on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
   release:
-    types: [created]
+    types:
+      - created
 
 jobs:
   build:
