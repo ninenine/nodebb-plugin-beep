@@ -5,6 +5,9 @@
 	"url": "https://github.com/ninenine/nodebb-plugin-beep",
 	"library": "./index.js",
 	"templates":"public/templates",
+	"modules": {
+		"../admin/plugins/beep.js": "public/admin.js"
+	},
 	"hooks": [
 		{ "hook": "static:app.load", "method": "init" },
 		{ "hook": "action:settings.set", "method": "onListChange" },

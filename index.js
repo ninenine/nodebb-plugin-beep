@@ -141,15 +141,15 @@ var Beep = {
 	parseTopic: function (data, callback) {
 		// from http://htmlarrows.com/symbols/
 		var starHTML = '*';
-		
+
     if (data.topic.hasOwnProperty('title')) {
       data.topic.title = Beep.parseContent(data.topic.title, starHTML);
     }
-		
+
     if (data.topic.hasOwnProperty('slug')) {
       data.topic.slug = Beep.parseContent(data.topic.slug, starHTML);
     }
-		
+
     if (data.topic.hasOwnProperty('titleRaw')) {
       data.topic.titleRaw = Beep.parseContent(data.topic.titleRaw, starHTML);
     }
