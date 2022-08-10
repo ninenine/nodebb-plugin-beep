@@ -3,17 +3,18 @@ name: Publish Node.js Package
 on:
   push:
     branches:
-      - master
+      - releases/**
+    tags:
+      - "v*"
 
 jobs:
   publish-npm:
-    needs: unit-tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          ode-version: "16.x"
+          node-version: "16.x"
           cache: "npm"
           registry-url: https://registry.npmjs.org/
       - run: npm ci
