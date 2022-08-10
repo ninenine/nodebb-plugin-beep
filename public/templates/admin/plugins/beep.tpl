@@ -1,4 +1,4 @@
-<div class="beep settings" class="row">
+<div class="beep" class="row">
 	<div class="col-xs-12">
 		<form role="form" class="beep-settings">
 			<div class="row">
@@ -33,7 +33,7 @@
 							<label for="urls"><i>comma-separated</i> list of Banned URLs (link will be shown as [link removed])</label>
 							<textarea class="form-control" id="urls" name="urls" placeholder="eg. google.com, yahoo.com"></textarea>
 						</div>
-					
+
 					</fieldset>
 				</div>
 			</div>
@@ -60,19 +60,3 @@
 	<i class="material-icons">save</i>
 </button>
 
-<script type="text/javascript">
-	require(['settings'], function(Settings) {
-		Settings.load('beep', $('.beep-settings'));
-
-		$('#save').on('click', function() {
-			Settings.save('beep', $('.beep-settings'), function() {
-				app.alert({
-					type: 'success',
-					alert_id: 'beep-saved',
-					title: 'Success',
-					message: 'Curse word settings have been successfully saved'
-				});
-			});
-		});
-	});
-</script>
