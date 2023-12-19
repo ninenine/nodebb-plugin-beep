@@ -18,6 +18,8 @@ var defaultBanList = [
 	'smegma', 'spunk', 'tit', 'tosser', 'turd', 'twat', 'vagina', 'wank', 'whore',
 ];
 
+const pluginName = 'Censor Curse Words';
+
 var Beep = {
 	banned_words_raw: '',
 	banned_words: null,
@@ -67,7 +69,9 @@ var Beep = {
 		var middleware = params.middleware;
 
 		function render(req, res, next) {
-			res.render('admin/plugins/beep', {});
+			res.render('admin/plugins/beep', {
+				title: pluginName,
+			});
 		}
 		router.get('/admin/plugins/beep', middleware.admin.buildHeader, render);
 		router.get('/api/admin/plugins/beep', render);
@@ -181,7 +185,7 @@ var Beep = {
 			custom_header.plugins.push({
 				route: '/plugins/beep',
 				icon: 'fa-microphone-slash',
-				name: 'Censor Curse Words',
+				name: pluginName,
 			});
 			callback(null, custom_header);
 		},
