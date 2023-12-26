@@ -1,5 +1,5 @@
 {
-  "name": "nodebb-plugin-beep",
+  "name": "@nodebb/nodebb-plugin-beep",
   "version": "0.4.7",
   "description": "NodeBB Censor Curse Words Plugin",
   "deprecated": false,
