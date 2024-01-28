@@ -12,6 +12,13 @@
 					</div>
 				</div>
 				<div class="mb-3">
+					<h5 class="fw-bold tracking-tight settings-header">Illegal Usernames</h5>
+					<div>
+						<label class="form-label" for="illegal-usernames"><i>comma-separated</i> list of Illegal Usernames (user creation will not be allowed)</label>
+						<textarea class="form-control" id="illegal-usernames" name="illegal-usernames" placeholder="eg. anal, anus, arse, ass, ballsack" rows="6"></textarea>
+					</div>
+				</div>
+				<div class="mb-3">
 					<h5 class="fw-bold tracking-tight settings-header">Banned Words</h5>
 
 					<div>
