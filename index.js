@@ -41,7 +41,7 @@ var Beep = {
 			}
 
 			Beep.illegal_words = Beep.toRegExp(hash.illegal, true);
-			Beep.illegal_usernames = Beep.toRegExp(hash['illegal-usernames'], true);
+			Beep.illegal_usernames = Beep.toRegExp(hash['illegal-usernames'], false);
 
 			if (hash.id && hash.id.length) {
 				var words = hash.id.split(',').filter(function (word) {
