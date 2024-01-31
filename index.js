@@ -1,5 +1,6 @@
 'use strict';
 
+const validator = require('validator');
 var winston = require.main.require('winston');
 var meta = require.main.require('./src/meta');
 
@@ -18,11 +19,14 @@ var defaultBanList = [
 	'smegma', 'spunk', 'tit', 'tosser', 'turd', 'twat', 'vagina', 'wank', 'whore',
 ];
 
+const pluginName = 'Censor Curse Words';
+
 var Beep = {
 	banned_words_raw: '',
 	banned_words: null,
 	banned_urls: null,
 	illegal_words: null,
+	illegal_usernames: null,
 
 	parseContent: function (content, symbol) {
 		var nil = '^(?!x)x';
@@ -37,6 +41,7 @@ var Beep = {
 			}
 
 			Beep.illegal_words = Beep.toRegExp(hash.illegal, true);
+			Beep.illegal_usernames = Beep.toRegExp(hash['illegal-usernames'], false);
 
 			if (hash.id && hash.id.length) {
 				var words = hash.id.split(',').filter(function (word) {
@@ -67,7 +72,9 @@ var Beep = {
 		var middleware = params.middleware;
 
 		function render(req, res, next) {
-			res.render('admin/plugins/beep', {});
+			res.render('admin/plugins/beep', {
+				title: pluginName,
+			});
 		}
 		router.get('/admin/plugins/beep', middleware.admin.buildHeader, render);
 		router.get('/api/admin/plugins/beep', render);
@@ -142,17 +149,17 @@ var Beep = {
 		// from http://htmlarrows.com/symbols/
 		var starHTML = '*';
 
-    if (data.topic.hasOwnProperty('title')) {
-      data.topic.title = Beep.parseContent(data.topic.title, starHTML);
-    }
+		if (data.topic.hasOwnProperty('title')) {
+			data.topic.title = Beep.parseContent(data.topic.title, starHTML);
+		}
 
-    if (data.topic.hasOwnProperty('slug')) {
-      data.topic.slug = Beep.parseContent(data.topic.slug, starHTML);
-    }
+		if (data.topic.hasOwnProperty('slug')) {
+			data.topic.slug = Beep.parseContent(data.topic.slug, starHTML);
+		}
 
-    if (data.topic.hasOwnProperty('titleRaw')) {
-      data.topic.titleRaw = Beep.parseContent(data.topic.titleRaw, starHTML);
-    }
+		if (data.topic.hasOwnProperty('titleRaw')) {
+			data.topic.titleRaw = Beep.parseContent(data.topic.titleRaw, starHTML);
+		}
 
 		callback(null, data);
 	},
@@ -181,7 +188,7 @@ var Beep = {
 			custom_header.plugins.push({
 				route: '/plugins/beep',
 				icon: 'fa-microphone-slash',
-				name: 'Censor Curse Words',
+				name: pluginName,
 			});
 			callback(null, custom_header);
 		},
@@ -201,6 +208,16 @@ var Beep = {
 			data.teaser.content = Beep.parseContent(data.teaser.content);
 			callback(null, data);
 		},
+	},
+	filterUserCreate: function (hookData) {
+		const { user } = hookData;
+		if (user && user.username) {
+			const isIllegal = user.username.match(Beep.illegal_usernames);
+			if (isIllegal) {
+				throw new Error(`[[beep:username.error, ${validator.escape(user.username)}]]`);
+			}
+		}
+		return hookData;
 	},
 };
 
